@@ -1,0 +1,35 @@
+{
+  "name": "generator-listy",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "chart.js": "^4.5.1",
+    "drizzle-orm": "^0.45.1",
+    "lucide-react": "^0.475.0",
+    "motion": "^12.4.3",
+    "mysql2": "^3.18.2",
+    "next": "^15.1.7",
+    "postcss": "^8.5.1",
+    "react": "^19.0.0",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "dotenv": "^17.3.1",
+    "drizzle-kit": "^0.31.9",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.3"
+  }
+}

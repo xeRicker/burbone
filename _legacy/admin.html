@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Admina</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css?v=24">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body style="display: none;">
+
+<div id="customTooltip"></div>
+
+<div id="globalLoader">
+    <div class="loader-content">
+        <div class="burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="loader-text">ŁADOWANIE DANYCH...</div>
+    </div>
+</div>
+
+<div class="admin-container">
+
+    <div class="header-bar animate-enter">
+        <h1>Panel Admina</h1>
+        <a href="index.html" class="btn-back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            WRÓĆ
+        </a>
+    </div>
+
+    <div class="filters animate-enter delay-1">
+        <div class="filter-group">
+            <label for="monthFilter" class="filter-label">WYBIERZ OKRES:</label>
+            <select id="monthFilter"></select>
+        </div>
+        <div style="font-size: 13px; color: #666;">
+            AKTUALIZACJA: <strong id="lastUpdate" style="color: #bbb;">-</strong>
+        </div>
+    </div>
+
+    <div id="weekTabsContainer" class="week-tabs animate-enter delay-1"></div>
+    <div id="summarySection" class="summary animate-enter delay-2"></div>
+
+    <div id="triviaSection" class="trivia-container animate-enter delay-2"></div>
+
+    <div class="view-toggle animate-enter delay-2">
+        <button class="view-btn active" data-view="total">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+            UTARG CAŁKOWITY
+        </button>
+        <button class="view-btn" data-view="cards">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            TYLKO KARTY
+        </button>
+    </div>
+
+    <div class="dashboard-grid animate-enter delay-3">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3 style="margin: 0; color: #eee;">Wizualizacja utargu</h3>
+                <div class="chart-controls">
+                    <button class="chart-btn active" data-type="bar">Słupkowy</button>
+                    <button class="chart-btn" data-type="line">Liniowy</button>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3 style="margin: 0; color: #eee;">Kalkulator Wypłaty</h3>
+            </div>
+            <div class="calc-grid">
+                <div class="calc-input-group">
+                    <label>Pracownik</label>
+                    <select id="calcEmployee" class="calc-input"></select>
+                </div>
+                <div class="calc-input-group">
+                    <label>Stawka</label>
+                    <div class="rate-input-wrapper">
+                        <input type="number" id="calcRate" value="25" step="0.5">
+                        <span>PLN</span>
+                    </div>
+                </div>
+            </div>
+            <div class="calc-grid">
+                <div class="calc-input-group">
+                    <label>Od daty</label>
+                    <input type="date" id="calcDateFrom" class="calc-input">
+                </div>
+                <div class="calc-input-group">
+                    <label>Do daty</label>
+                    <input type="date" id="calcDateTo" class="calc-input">
+                </div>
+            </div>
+
+            <div id="calcResult" class="calc-result-box" style="display:none;">
+                <div class="calc-res-item">
+                    <h4>
+                        <svg class="calc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        GODZINY
+                    </h4>
+                    <p id="resHours">0 h</p>
+                </div>
+                <div class="calc-res-item">
+                    <h4>
+                        <svg class="calc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+                        WYPŁATA
+                    </h4>
+                    <p id="resMoney" class="money">0 zł</p>
+                </div>
+            </div>
+            <div id="calcDetails" style="margin-top: 15px; font-size: 13px; color: #aaa; display:none;"></div>
+        </div>
+    </div>
+
+    <div class="chart-card animate-enter delay-3" style="margin-bottom: 40px;">
+        <h3 style="margin: 0 0 20px 0; color: #eee;">Mapa Cieplna</h3>
+        <div id="heatmapContainer" class="heatmap-grid"></div>
+    </div>
+
+    <div class="chart-card animate-enter delay-3" style="margin-bottom: 40px;">
+        <h3 style="margin: 0 0 20px 0; color: #eee;">ANALIZA PRODUKTÓW</h3>
+        <div class="dashboard-grid" style="margin-bottom: 0;">
+            <div>
+                <h4 style="color:#888; font-size:12px; margin-bottom:10px;">NAJCZĘŚCIEJ ZAMAWIANE</h4>
+                <div class="chart-wrapper" style="height: 300px;">
+                    <canvas id="productRequestsChart"></canvas>
+                </div>
+            </div>
+            <div>
+                <h4 style="color:#888; font-size:12px; margin-bottom:10px;">SUMA ILOŚCI</h4>
+                <div class="chart-wrapper" style="height: 300px;">
+                    <canvas id="productCountsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card animate-enter delay-3" style="margin-bottom: 40px;">
+        <div style="padding: 20px; border-bottom: 1px solid #333;">
+            <h3 style="margin: 0; color: #eee;">RAPORT GODZIN</h3>
+        </div>
+        <div class="table-responsive">
+            <table id="employeeTable">
+                <thead>
+                <tr>
+                    <th onclick="sortEmpTable(0)">Pracownik</th>
+                    <th onclick="sortEmpTable(1)">Godziny</th>
+                    <th onclick="sortEmpTable(3)">% Etatu (160h)</th>
+                    <th onclick="sortEmpTable(2)">Lokalizacje (%)</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="table-card animate-enter delay-3">
+        <div style="padding: 20px; border-bottom: 1px solid #333;">
+            <h3 style="margin: 0; color: #eee;">RAPORT DZIENNY</h3>
+        </div>
+        <div id="loading">Ładowanie danych...</div>
+        <div class="table-responsive">
+            <table id="revenueTable" style="display:none;">
+                <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Dzień tyg.</th>
+                    <th>Oświęcim</th>
+                    <th>Wilamowice</th>
+                    <th>SUMA DNIA</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    window.sortEmpTable = (colIndex) => { console.log("Sort init", colIndex); }
+</script>
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>

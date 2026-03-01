@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Oswald", sans-serif;
+  --font-body: "Roboto", sans-serif;
+
+  --color-bg: #121212;
+  --color-surface: #1E1E1E;
+  --color-surface-active: #2C2C2C;
+  --color-primary: #D35400;
+  --color-primary-glow: rgba(211, 84, 0, 0.4);
+  --color-text-primary: #E0E0E0;
+  --color-text-secondary: #B0B0B0;
+  --color-text-muted: #666666;
+  --color-success: #27AE60;
+  --color-danger: #C0392B;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-pill: 50px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  html, body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    overflow-x: hidden;
+    touch-action: manipulation;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  button, label, th, .btn {
+    font-family: var(--font-heading);
+    letter-spacing: 0.5px;
+  }
+  input, select, textarea, td {
+    font-family: var(--font-body);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-bg); }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+}
+
+@layer utilities {
+  .glass-effect {
+    background-color: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
