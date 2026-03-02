@@ -1,0 +1,63 @@
+{
+  "id": 236,
+  "locationId": 2,
+  "date": "2026-01-22",
+  "revenue": 891,
+  "cardRevenue": 455,
+  "workLogs": [
+    {
+      "hoursWorked": 9.5,
+      "employeeSlug": "tomek"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 1
+    },
+    {
+      "productId": 3,
+      "quantity": 1
+    },
+    {
+      "productId": 10,
+      "quantity": 1
+    },
+    {
+      "productId": 5,
+      "quantity": 1
+    },
+    {
+      "productId": 17,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 1
+    },
+    {
+      "productId": 11,
+      "quantity": 1
+    },
+    {
+      "productId": 64,
+      "quantity": 13
+    },
+    {
+      "productId": 32,
+      "quantity": 1
+    },
+    {
+      "productId": 16,
+      "quantity": 1
+    },
+    {
+      "productId": 18,
+      "quantity": 1
+    }
+  ]
+}

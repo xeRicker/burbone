@@ -1,0 +1,27 @@
+{
+  "id": 405,
+  "locationId": 3,
+  "date": "2026-01-31",
+  "revenue": 202,
+  "cardRevenue": 202,
+  "workLogs": [
+    {
+      "hoursWorked": 4.5,
+      "employeeSlug": "tomek"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 10,
+      "quantity": 1
+    },
+    {
+      "productId": 64,
+      "quantity": 0
+    },
+    {
+      "productId": 16,
+      "quantity": 1
+    }
+  ]
+}

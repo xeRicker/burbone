@@ -1,0 +1,83 @@
+{
+  "id": 289,
+  "locationId": 2,
+  "date": "2025-11-29",
+  "revenue": 1735,
+  "cardRevenue": 0,
+  "workLogs": [
+    {
+      "hoursWorked": 9,
+      "employeeSlug": "kacper"
+    },
+    {
+      "hoursWorked": 7,
+      "employeeSlug": "natalia"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 1
+    },
+    {
+      "productId": 9,
+      "quantity": 1
+    },
+    {
+      "productId": 10,
+      "quantity": 1
+    },
+    {
+      "productId": 4,
+      "quantity": 1
+    },
+    {
+      "productId": 5,
+      "quantity": 2
+    },
+    {
+      "productId": 6,
+      "quantity": 1
+    },
+    {
+      "productId": 11,
+      "quantity": 1
+    },
+    {
+      "productId": 64,
+      "quantity": 0
+    },
+    {
+      "productId": 8,
+      "quantity": 1
+    },
+    {
+      "productId": 35,
+      "quantity": 1
+    },
+    {
+      "productId": 15,
+      "quantity": 1
+    },
+    {
+      "productId": 36,
+      "quantity": 1
+    },
+    {
+      "productId": 16,
+      "quantity": 1
+    },
+    {
+      "productId": 38,
+      "quantity": 1
+    },
+    {
+      "productId": 45,
+      "quantity": 1
+    }
+  ]
+}

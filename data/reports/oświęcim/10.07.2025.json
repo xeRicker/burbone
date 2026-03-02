@@ -1,0 +1,43 @@
+{
+  "id": 149,
+  "locationId": 2,
+  "date": "2025-07-10",
+  "revenue": 0,
+  "cardRevenue": 0,
+  "workLogs": [
+    {
+      "hoursWorked": 9.5,
+      "employeeSlug": "tomek"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 2,
+      "quantity": 1
+    },
+    {
+      "productId": 9,
+      "quantity": 1
+    },
+    {
+      "productId": 3,
+      "quantity": 1
+    },
+    {
+      "productId": 4,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 1
+    },
+    {
+      "productId": 7,
+      "quantity": 16
+    },
+    {
+      "productId": 8,
+      "quantity": 1
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": 252,
+  "locationId": 2,
+  "date": "2026-01-24",
+  "revenue": 1666,
+  "cardRevenue": 955,
+  "workLogs": [
+    {
+      "hoursWorked": 9.5,
+      "employeeSlug": "sebastian"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 4
+    },
+    {
+      "productId": 46,
+      "quantity": 1
+    },
+    {
+      "productId": 10,
+      "quantity": 1
+    },
+    {
+      "productId": 4,
+      "quantity": 1
+    },
+    {
+      "productId": 5,
+      "quantity": 1
+    },
+    {
+      "productId": 37,
+      "quantity": 1
+    },
+    {
+      "productId": 17,
+      "quantity": 1
+    },
+    {
+      "productId": 21,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 3
+    },
+    {
+      "productId": 64,
+      "quantity": 14
+    },
+    {
+      "productId": 8,
+      "quantity": 2
+    },
+    {
+      "productId": 13,
+      "quantity": 1
+    },
+    {
+      "productId": 47,
+      "quantity": 1
+    },
+    {
+      "productId": 32,
+      "quantity": 1
+    },
+    {
+      "productId": 15,
+      "quantity": 1
+    },
+    {
+      "productId": 26,
+      "quantity": 1
+    },
+    {
+      "productId": 16,
+      "quantity": 1
+    },
+    {
+      "productId": 38,
+      "quantity": 1
+    },
+    {
+      "productId": 65,
+      "quantity": 1
+    },
+    {
+      "productId": 18,
+      "quantity": 1
+    },
+    {
+      "productId": 67,
+      "quantity": 1
+    },
+    {
+      "productId": 27,
+      "quantity": 1
+    }
+  ]
+}

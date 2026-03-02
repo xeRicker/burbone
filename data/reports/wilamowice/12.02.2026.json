@@ -1,0 +1,47 @@
+{
+  "id": 340,
+  "locationId": 3,
+  "date": "2026-02-12",
+  "revenue": 677,
+  "cardRevenue": 468,
+  "workLogs": [
+    {
+      "hoursWorked": 7,
+      "employeeSlug": "radek"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 2,
+      "quantity": 2
+    },
+    {
+      "productId": 4,
+      "quantity": 1
+    },
+    {
+      "productId": 5,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 1
+    },
+    {
+      "productId": 39,
+      "quantity": 1
+    },
+    {
+      "productId": 64,
+      "quantity": 8
+    },
+    {
+      "productId": 41,
+      "quantity": 1
+    },
+    {
+      "productId": 18,
+      "quantity": 1
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": 83,
+  "locationId": 2,
+  "date": "2025-07-01",
+  "revenue": 0,
+  "cardRevenue": 0,
+  "workLogs": [
+    {
+      "hoursWorked": 9.5,
+      "employeeSlug": "sebastian"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 1
+    },
+    {
+      "productId": 21,
+      "quantity": 1
+    },
+    {
+      "productId": 7,
+      "quantity": 8
+    },
+    {
+      "productId": 66,
+      "quantity": 1
+    }
+  ]
+}

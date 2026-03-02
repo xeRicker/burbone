@@ -1,0 +1,43 @@
+{
+  "id": 256,
+  "locationId": 2,
+  "date": "2025-11-24",
+  "revenue": 784,
+  "cardRevenue": 0,
+  "workLogs": [
+    {
+      "hoursWorked": 9.5,
+      "employeeSlug": "tomek"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 2,
+      "quantity": 2
+    },
+    {
+      "productId": 9,
+      "quantity": 1
+    },
+    {
+      "productId": 61,
+      "quantity": 1
+    },
+    {
+      "productId": 4,
+      "quantity": 3
+    },
+    {
+      "productId": 11,
+      "quantity": 1
+    },
+    {
+      "productId": 64,
+      "quantity": 16
+    },
+    {
+      "productId": 8,
+      "quantity": 1
+    }
+  ]
+}

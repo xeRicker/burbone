@@ -1,0 +1,63 @@
+{
+  "id": 370,
+  "locationId": 3,
+  "date": "2025-12-20",
+  "revenue": 847,
+  "cardRevenue": 0,
+  "workLogs": [
+    {
+      "hoursWorked": 9,
+      "employeeSlug": "pawe"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 75,
+      "quantity": 1
+    },
+    {
+      "productId": 73,
+      "quantity": 1
+    },
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 2
+    },
+    {
+      "productId": 9,
+      "quantity": 1
+    },
+    {
+      "productId": 5,
+      "quantity": 1
+    },
+    {
+      "productId": 37,
+      "quantity": 1
+    },
+    {
+      "productId": 17,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 1
+    },
+    {
+      "productId": 39,
+      "quantity": 1
+    },
+    {
+      "productId": 64,
+      "quantity": 210
+    },
+    {
+      "productId": 70,
+      "quantity": 1
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "id": 57,
+  "locationId": 1,
+  "date": "2025-09-20",
+  "revenue": 0,
+  "cardRevenue": 0,
+  "workLogs": [
+    {
+      "hoursWorked": 9,
+      "employeeSlug": "radek"
+    },
+    {
+      "hoursWorked": 7,
+      "employeeSlug": "sebastian"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 4
+    },
+    {
+      "productId": 9,
+      "quantity": 1
+    },
+    {
+      "productId": 46,
+      "quantity": 1
+    },
+    {
+      "productId": 3,
+      "quantity": 1
+    },
+    {
+      "productId": 10,
+      "quantity": 1
+    },
+    {
+      "productId": 5,
+      "quantity": 2
+    },
+    {
+      "productId": 21,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 3
+    },
+    {
+      "productId": 39,
+      "quantity": 1
+    },
+    {
+      "productId": 7,
+      "quantity": 0
+    },
+    {
+      "productId": 8,
+      "quantity": 2
+    },
+    {
+      "productId": 47,
+      "quantity": 1
+    },
+    {
+      "productId": 32,
+      "quantity": 1
+    },
+    {
+      "productId": 55,
+      "quantity": 1
+    },
+    {
+      "productId": 56,
+      "quantity": 1
+    },
+    {
+      "productId": 57,
+      "quantity": 1
+    },
+    {
+      "productId": 58,
+      "quantity": 1
+    },
+    {
+      "productId": 15,
+      "quantity": 1
+    },
+    {
+      "productId": 59,
+      "quantity": 1
+    },
+    {
+      "productId": 60,
+      "quantity": 1
+    },
+    {
+      "productId": 36,
+      "quantity": 1
+    },
+    {
+      "productId": 16,
+      "quantity": 1
+    },
+    {
+      "productId": 38,
+      "quantity": 1
+    },
+    {
+      "productId": 27,
+      "quantity": 1
+    },
+    {
+      "productId": 45,
+      "quantity": 1
+    },
+    {
+      "productId": 63,
+      "quantity": 1
+    }
+  ]
+}

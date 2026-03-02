@@ -1,0 +1,71 @@
+{
+  "id": 53,
+  "locationId": 1,
+  "date": "2025-08-19",
+  "revenue": 0,
+  "cardRevenue": 0,
+  "workLogs": [
+    {
+      "hoursWorked": 6.5,
+      "employeeSlug": "radek"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 2
+    },
+    {
+      "productId": 3,
+      "quantity": 1
+    },
+    {
+      "productId": 10,
+      "quantity": 1
+    },
+    {
+      "productId": 4,
+      "quantity": 1
+    },
+    {
+      "productId": 5,
+      "quantity": 1
+    },
+    {
+      "productId": 21,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 1
+    },
+    {
+      "productId": 7,
+      "quantity": 0
+    },
+    {
+      "productId": 30,
+      "quantity": 1
+    },
+    {
+      "productId": 55,
+      "quantity": 1
+    },
+    {
+      "productId": 56,
+      "quantity": 1
+    },
+    {
+      "productId": 57,
+      "quantity": 1
+    },
+    {
+      "productId": 58,
+      "quantity": 1
+    }
+  ]
+}

@@ -1,22 +1,16 @@
+import { QueryProvider } from "@/components/providers/query-provider";
 import type { Metadata } from "next";
-import { Oswald, Roboto } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const oswald = Oswald({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-heading",
-});
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-body",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Generator Listy",
-  description: "Minimalist management application.",
+  title: "Burbone",
+  description: "Aplikacja do zarządzania zaopatrzeniem.",
 };
 
 export default function RootLayout({
@@ -25,9 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl" className={`${oswald.variable} ${roboto.variable}`}>
-      <body className="antialiased font-body min-h-screen pb-32">
-        {children}
+    <html lang="pl" className={inter.className}>
+      <body>
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

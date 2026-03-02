@@ -1,50 +1,57 @@
-"use client"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils/cn";
 
-import * as React from "react"
-import { motion, HTMLMotionProps } from "motion/react"
-import { LucideIcon } from "lucide-react"
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-border-focus disabled:pointer-events-none disabled:opacity-38",
+  {
+    variants: {
+      variant: {
+        filled: "bg-primary text-text-on-primary hover:bg-primary-hover",
+        tonal: "bg-primary-subtle text-primary hover:bg-hover-overlay",
+        outlined: "border border-border-default text-primary hover:bg-hover-overlay",
+        text: "text-primary hover:bg-hover-overlay",
+        ghost: "text-text-secondary hover:bg-hover-overlay",
+        error: "bg-error text-text-on-error hover:bg-error-hover",
+        success: "bg-success text-text-on-success hover:bg-success-hover",
+        warning: "bg-warning text-text-on-warning hover:bg-warning-hover",
+        info: "bg-info text-text-on-info hover:bg-info-hover",
+        primary: "bg-primary text-text-on-primary hover:bg-primary-hover",
+        secondary: "bg-bg-elevated text-text-primary hover:bg-hover-overlay",
+      },
+      size: {
+        default: "h-10 px-6 py-2",
+        sm: "h-9 px-4",
+        lg: "h-11 px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "filled",
+      size: "default",
+    },
+  }
+);
 
-export interface ButtonProps extends HTMLMotionProps<"button"> {
-  variant?: "primary" | "secondary" | "danger" | "ghost" | "icon"
-  size?: "sm" | "md" | "lg" | "icon"
-  icon?: LucideIcon
-  children?: React.ReactNode
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className = "", variant = "primary", size = "md", icon: Icon, children, ...props }, ref) => {
-    
-    const baseStyles = "inline-flex items-center justify-center font-heading tracking-wide uppercase transition-all duration-200"
-    
-    const variants = {
-      primary: "bg-primary text-white shadow-[0_4px_15px_rgba(211,84,0,0.4)] hover:brightness-110",
-      secondary: "bg-surface-active text-text-primary border border-[#333] hover:bg-[#333]",
-      danger: "bg-danger/10 text-danger border border-danger hover:bg-danger/20",
-      ghost: "bg-transparent text-primary hover:text-white",
-      icon: "bg-surface border border-[#333] text-text-primary hover:text-primary",
-    }
-    
-    const sizes = {
-      sm: "px-4 py-2 text-sm rounded-pill",
-      md: "px-6 py-3 text-base rounded-pill",
-      lg: "px-8 py-4 text-lg rounded-pill font-semibold",
-      icon: "w-14 h-14 rounded-full",
-    }
-    
-    const variantStyle = variants[variant]
-    const sizeStyle = sizes[size]
-    
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
     return (
-      <motion.button
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        className={`${baseStyles} ${variantStyle} ${sizeStyle} ${className}`}
-        whileTap={{ scale: 0.96 }}
         {...props}
-      >
-        {Icon && <Icon className={children ? "mr-2 h-5 w-5" : "h-6 w-6"} strokeWidth={1.5} />}
-        {children}
-      </motion.button>
-    )
+      />
+    );
   }
-)
-Button.displayName = "Button"
+);
+Button.displayName = "Button";
+
+export { Button, buttonVariants };

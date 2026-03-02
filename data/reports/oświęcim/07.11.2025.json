@@ -1,0 +1,75 @@
+{
+  "id": 132,
+  "locationId": 2,
+  "date": "2025-11-07",
+  "revenue": 0,
+  "cardRevenue": 0,
+  "workLogs": [
+    {
+      "hoursWorked": 9.5,
+      "employeeSlug": "sebastian"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 2
+    },
+    {
+      "productId": 10,
+      "quantity": 1
+    },
+    {
+      "productId": 5,
+      "quantity": 1
+    },
+    {
+      "productId": 37,
+      "quantity": 1
+    },
+    {
+      "productId": 34,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 3
+    },
+    {
+      "productId": 64,
+      "quantity": 17
+    },
+    {
+      "productId": 8,
+      "quantity": 2
+    },
+    {
+      "productId": 14,
+      "quantity": 1
+    },
+    {
+      "productId": 25,
+      "quantity": 1
+    },
+    {
+      "productId": 26,
+      "quantity": 1
+    },
+    {
+      "productId": 36,
+      "quantity": 1
+    },
+    {
+      "productId": 65,
+      "quantity": 1
+    },
+    {
+      "productId": 52,
+      "quantity": 1
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": 221,
+  "locationId": 2,
+  "date": "2026-02-20",
+  "revenue": 867,
+  "cardRevenue": 583,
+  "workLogs": [
+    {
+      "hoursWorked": 9.5,
+      "employeeSlug": "sebastian"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 2,
+      "quantity": 2
+    },
+    {
+      "productId": 9,
+      "quantity": 1
+    },
+    {
+      "productId": 61,
+      "quantity": 1
+    },
+    {
+      "productId": 4,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 3
+    },
+    {
+      "productId": 64,
+      "quantity": 20
+    },
+    {
+      "productId": 31,
+      "quantity": 1
+    },
+    {
+      "productId": 32,
+      "quantity": 1
+    },
+    {
+      "productId": 68,
+      "quantity": 1
+    },
+    {
+      "productId": 69,
+      "quantity": 1
+    },
+    {
+      "productId": 33,
+      "quantity": 1
+    }
+  ]
+}

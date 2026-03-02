@@ -21,14 +21,14 @@ export interface ProductItem {
 }
 
 export const CATEGORIES: Record<string, { items: ProductItem[] }> = {
-  "⭐": {
+  "Drwal": {
       items: [
           { name: "Drwal: Kotlet Serowy", type: 's' },
           { name: "Drwal: Sos Jalapeño", type: 's' },
           { name: "Drwal: Żurawina", type: 's' },
       ]
   },
-  "🥗": {
+  "Warzywa": {
       items: [
           { name: "Sałata", type: '' },
           { name: "Ogórki", type: '' },
@@ -37,7 +37,7 @@ export const CATEGORIES: Record<string, { items: ProductItem[] }> = {
           { name: "Jalapeno", type: 's' },
       ]
   },
-  "🥩": {
+  "Mięso": {
       items: [
           { name: "Mięso: Małe", type: '' },
           { name: "Mięso: Duże", type: '' },
@@ -46,14 +46,14 @@ export const CATEGORIES: Record<string, { items: ProductItem[] }> = {
           { name: "Chorizo", type: 's' }
       ]
   },
-  "🧀": {
+  "Sery": {
       items: [
           { name: "Cheddar", type: '' },
           { name: "Halloumi", type: '' },
           { name: "Majonez", type: 's' }
       ]
   },
-  "🍟": {
+  "Frytki": {
       items: [
           { name: "Frytki", type: '' },
           { name: "Placki", type: '' },
@@ -61,10 +61,10 @@ export const CATEGORIES: Record<string, { items: ProductItem[] }> = {
           { name: "Frytura", type: 's' }
       ]
   },
-  "🍞": {
+  "Pieczywo": {
       items: [ { name: "Bułki", type: '' } ]
   },
-  "🧂": {
+  "Sosy i Przyprawy": {
       items: [
           { name: "Cebula prażona", type: '' },
           { name: "Sriracha", type: 's' },
@@ -82,7 +82,7 @@ export const CATEGORIES: Record<string, { items: ProductItem[] }> = {
           { name: "Zbój: Cytryna", type: 's' }
       ]
   },
-  "🥤": {
+  "Napoje": {
       items: [
           { name: "Pepsi", type: 's' },
           { name: "Pepsi Max", type: 's' },
@@ -90,7 +90,7 @@ export const CATEGORIES: Record<string, { items: ProductItem[] }> = {
           { name: "Lipton", type: 's' }
       ]
   },
-  "🛍️": {
+  "Opakowania": {
       items: [
           { name: "Torby: Małe", type: 's' },
           { name: "Torby: Średnie", type: 's' },
@@ -104,7 +104,7 @@ export const CATEGORIES: Record<string, { items: ProductItem[] }> = {
           { name: "Papier pod grilla", type: 's' }
       ]
   },
-  "🧽": {
+  "Czystość": {
       items: [
           { name: "Szmaty", type: 's' },
           { name: "Zielony papier", type: 's' },
@@ -114,7 +114,7 @@ export const CATEGORIES: Record<string, { items: ProductItem[] }> = {
           { name: "Woda 5L", type: 's' }
       ]
   },
-  "📋": {
+  "Biurowe": {
       items: [
           { name: "Drobne: 1,2,5", type: 's' },
           { name: "Drobne: 10,20", type: 's' },

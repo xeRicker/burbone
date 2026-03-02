@@ -1,0 +1,95 @@
+{
+  "id": 206,
+  "locationId": 2,
+  "date": "2025-07-18",
+  "revenue": 0,
+  "cardRevenue": 0,
+  "workLogs": [
+    {
+      "hoursWorked": 9.5,
+      "employeeSlug": "sebastian"
+    },
+    {
+      "hoursWorked": 5.5,
+      "employeeSlug": "kacper"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 3
+    },
+    {
+      "productId": 10,
+      "quantity": 1
+    },
+    {
+      "productId": 4,
+      "quantity": 2
+    },
+    {
+      "productId": 5,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 3
+    },
+    {
+      "productId": 44,
+      "quantity": 1
+    },
+    {
+      "productId": 7,
+      "quantity": 12
+    },
+    {
+      "productId": 8,
+      "quantity": 2
+    },
+    {
+      "productId": 47,
+      "quantity": 1
+    },
+    {
+      "productId": 22,
+      "quantity": 1
+    },
+    {
+      "productId": 59,
+      "quantity": 1
+    },
+    {
+      "productId": 60,
+      "quantity": 1
+    },
+    {
+      "productId": 26,
+      "quantity": 1
+    },
+    {
+      "productId": 36,
+      "quantity": 1
+    },
+    {
+      "productId": 38,
+      "quantity": 1
+    },
+    {
+      "productId": 18,
+      "quantity": 1
+    },
+    {
+      "productId": 12,
+      "quantity": 1
+    },
+    {
+      "productId": 27,
+      "quantity": 1
+    }
+  ]
+}

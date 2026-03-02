@@ -1,16 +1,16 @@
 import type { Config } from "drizzle-kit";
 import * as dotenv from "dotenv";
-dotenv.config();
+dotenv.config({ path: ".env.local" });
 
 export default {
   schema: "./src/db/schema.ts",
   out: "./src/db/migrations",
   dialect: "mysql",
   dbCredentials: {
-    host: process.env.DB_HOST || "localhost",
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "",
-    database: process.env.DB_NAME || "burbone_db",
-    port: Number(process.env.DB_PORT) || 3306,
+    host: process.env.MYSQL_HOST || "127.0.0.1",
+    user: process.env.MYSQL_USER || "root",
+    password: process.env.MYSQL_PASSWORD || "",
+    database: process.env.MYSQL_DATABASE || "burbone_db",
+    port: Number(process.env.MYSQL_PORT) || 3306,
   },
 } satisfies Config;

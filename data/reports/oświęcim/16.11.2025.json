@@ -1,0 +1,55 @@
+{
+  "id": 194,
+  "locationId": 2,
+  "date": "2025-11-16",
+  "revenue": 0,
+  "cardRevenue": 0,
+  "workLogs": [
+    {
+      "hoursWorked": 7.5,
+      "employeeSlug": "natalia"
+    },
+    {
+      "hoursWorked": 7.5,
+      "employeeSlug": "dominik"
+    }
+  ],
+  "inventory": [
+    {
+      "productId": 2,
+      "quantity": 2
+    },
+    {
+      "productId": 9,
+      "quantity": 1
+    },
+    {
+      "productId": 46,
+      "quantity": 1
+    },
+    {
+      "productId": 10,
+      "quantity": 1
+    },
+    {
+      "productId": 5,
+      "quantity": 1
+    },
+    {
+      "productId": 6,
+      "quantity": 3
+    },
+    {
+      "productId": 11,
+      "quantity": 3
+    },
+    {
+      "productId": 64,
+      "quantity": 7
+    },
+    {
+      "productId": 8,
+      "quantity": 1
+    }
+  ]
+}

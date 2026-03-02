@@ -1,66 +1,169 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: "Oswald", sans-serif;
-  --font-body: "Roboto", sans-serif;
+  /* Font */
+  --font-sans: "Inter", sans-serif;
 
-  --color-bg: #121212;
-  --color-surface: #1E1E1E;
-  --color-surface-active: #2C2C2C;
-  --color-primary: #D35400;
-  --color-primary-glow: rgba(211, 84, 0, 0.4);
-  --color-text-primary: #E0E0E0;
-  --color-text-secondary: #B0B0B0;
-  --color-text-muted: #666666;
-  --color-success: #27AE60;
-  --color-danger: #C0392B;
-
+  /* Border Radius */
+  --radius-xs: 4px;
   --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-pill: 50px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* ========================================
+     BRAND — PRIMARY (neon orange)
+     ======================================== */
+  --color-primary: #FF8C42;
+  --color-primary-hover: #FFA060;
+  --color-primary-active: #E07830;
+  --color-primary-muted: #FFB88A;
+  --color-primary-subtle: #2D1A0A;
+
+  /* ========================================
+     BRAND — ACCENT (complementary blue)
+     ======================================== */
+  --color-accent: #42B4FF;
+  --color-accent-hover: #60C4FF;
+  --color-accent-active: #2898E0;
+  --color-accent-muted: #8AD4FF;
+  --color-accent-subtle: #0A1926;
+
+  /* ========================================
+     SURFACES (ciemne tła, ciepły podton)
+     ======================================== */
+  --color-bg-base: #0E0B0A;
+  --color-bg-raised: #1A1412;
+  --color-bg-overlay: #241C1A;
+  --color-bg-elevated: #2E2522;
+  --color-bg-highest: #3A302C;
+  --color-bg-input: #161110;
+
+  /* ========================================
+     TEKST
+     ======================================== */
+  --color-text-primary: #F0DDD6;
+  --color-text-secondary: #B8A49C;
+  --color-text-muted: #7A6B64;
+  --color-text-disabled: #4A3F3B;
+  --color-text-on-primary: #1A0800;
+  --color-text-on-accent: #001428;
+  --color-text-on-success: #002208;
+  --color-text-on-warning: #221A00;
+  --color-text-on-error: #220404;
+
+  /* ========================================
+     BORDER
+     ======================================== */
+  --color-border-subtle: #261E1C;
+  --color-border-default: #3A302C;
+  --color-border-hover: #5A4E48;
+  --color-border-focus: #FF8C42;
+
+  /* ========================================
+     STATUS — SUCCESS (green)
+     ======================================== */
+  --color-success: #66D97A;
+  --color-success-hover: #7AE68C;
+  --color-success-active: #52C266;
+  --color-success-muted: #A3E8B0;
+  --color-success-subtle: #122216;
+  --color-success-border: #2D5C36;
+
+  /* ========================================
+     STATUS — WARNING (amber)
+     ======================================== */
+  --color-warning: #FFD166;
+  --color-warning-hover: #FFDC85;
+  --color-warning-active: #E0B84D;
+  --color-warning-muted: #FFE49E;
+  --color-warning-subtle: #262010;
+  --color-warning-border: #5C4D20;
+
+  /* ========================================
+     STATUS — ERROR (red)
+     ======================================== */
+  --color-error: #FF6B6B;
+  --color-error-hover: #FF8585;
+  --color-error-active: #E05252;
+  --color-error-muted: #FFAAAA;
+  --color-error-subtle: #261212;
+  --color-error-border: #5C2020;
+
+  /* ========================================
+     STATUS — INFO (blue)
+     ======================================== */
+  --color-info: #64B5F6;
+  --color-info-hover: #82C6F8;
+  --color-info-active: #4AA0E0;
+  --color-info-muted: #A8D5FA;
+  --color-info-subtle: #0E1926;
+  --color-info-border: #1E3A5C;
+
+  /* ========================================
+     INTERACTIVE STATES (overlays)
+     ======================================== */
+  --color-hover-overlay: rgba(255, 140, 66, 0.08);
+  --color-active-overlay: rgba(255, 140, 66, 0.12);
+  --color-focus-ring: #FF8C42;
+  --color-selected-bg: #2D1A0A;
+  --color-drag-overlay: rgba(255, 140, 66, 0.16);
+
+  /* ========================================
+     SPECJALNE
+     ======================================== */
+  --color-scrim: rgba(0, 0, 0, 0.6);
+  --color-skeleton: #2E2522;
+  --color-divider: #261E1C;
+  --color-scrollbar-thumb: #3A302C;
+  --color-scrollbar-thumb-hover: #5A4E48;
+
+  /* ========================================
+     NEON GLOW (efekty specjalne)
+     ======================================== */
+  --color-glow-primary: rgba(255, 106, 0, 0.25);
+  --color-glow-accent: rgba(66, 180, 255, 0.20);
 }
 
 @layer base {
-  * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
-  html, body {
-    font-family: var(--font-body);
-    background-color: var(--color-bg);
-    color: var(--color-text-primary);
+  *, *::before, *::after {
     margin: 0;
     padding: 0;
-    font-size: 16px;
-    overflow-x: hidden;
-    touch-action: manipulation;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    margin: 0;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-  button, label, th, .btn {
-    font-family: var(--font-heading);
-    letter-spacing: 0.5px;
-  }
-  input, select, textarea, td {
-    font-family: var(--font-body);
+    box-sizing: border-box;
   }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: var(--color-bg); }
-  ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
-}
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-text-primary);
+  }
+  
+  body {
+    background-color: var(--color-bg-base);
+  }
 
-@layer utilities {
-  .glass-effect {
-    background-color: rgba(30, 30, 30, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+  input, button, textarea, select {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-scrollbar-thumb);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-scrollbar-thumb-hover);
   }
 }
