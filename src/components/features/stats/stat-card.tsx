@@ -17,13 +17,13 @@ const colorClasses = {
 
 export function StatCard({ label, value, icon: Icon, color = "primary" }: StatCardProps) {
   return (
-    <div className="bg-bg-raised p-6 rounded-xl flex items-center gap-6">
-      <div className={cn("p-3 rounded-full", colorClasses[color])}>
+    <div className="bg-bg-raised border border-border-subtle p-6 rounded-xl flex items-center gap-4 min-h-[116px]">
+      <div className={cn("p-3 rounded-full shrink-0", colorClasses[color])}>
         <Icon className="w-6 h-6" />
       </div>
-      <div className="flex flex-col">
-        <p className="text-sm text-text-secondary">{label}</p>
-        <p className="text-2xl font-bold text-text-primary">{value}</p>
+      <div className="flex flex-col justify-center min-w-0">
+        <p className="text-sm text-text-secondary truncate">{label}</p>
+        <p className="text-2xl font-bold text-text-primary leading-tight break-words">{value}</p>
       </div>
     </div>
   );

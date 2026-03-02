@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useDataStore } from "@/stores/data-store";
 import { useStatsFiltersStore } from "@/stores/stats-filters-store";
 import { PageHeader } from "@/components/layouts/page-header";
@@ -28,6 +28,28 @@ const FullScreenLoader = () => (
 const StatsDashboard = () => {
     const { locations, reports, employees, isLoaded } = useDataStore();
     const { dateRange, locationId, currentMonth, setDateRange, setLocationId, setCurrentMonth } = useStatsFiltersStore();
+
+
+    useEffect(() => {
+        if (!reports.length) return;
+
+        const hasDataInSelectedRange = reports.some((r) => {
+            const reportDate = parse(r.date, 'yyyy-MM-dd', new Date());
+            return isWithinInterval(reportDate, { start: startOfDay(dateRange.from), end: endOfDay(dateRange.to) });
+        });
+
+        if (!hasDataInSelectedRange) {
+            const latestReportDate = reports
+                .map((r) => parse(r.date, 'yyyy-MM-dd', new Date()))
+                .sort((a, b) => b.getTime() - a.getTime())[0];
+
+            const fallbackFrom = new Date(latestReportDate);
+            fallbackFrom.setDate(fallbackFrom.getDate() - 6);
+
+            setDateRange({ from: startOfDay(fallbackFrom), to: endOfDay(latestReportDate) });
+            setCurrentMonth(latestReportDate);
+        }
+    }, [reports, dateRange, setDateRange, setCurrentMonth]);
 
     const filteredReports = useMemo(() => {
         const startDate = startOfDay(dateRange.from);
@@ -67,11 +89,12 @@ const StatsDashboard = () => {
         filteredReports.forEach(r => {
             if (r.workLogs) {
                 r.workLogs.forEach(log => {
-                    const employee = employees.find(e => e.slug === log.employeeSlug);
+                    const employeeKey = log.employeeSlug || String(log.employeeId || "unknown");
+                    const employee = employees.find(e => e.slug === log.employeeSlug) || employees.find(e => e.id === log.employeeId);
                     if (!employee) return;
-                    const stats = employeeStats.get(log.employeeSlug) || { totalHours: 0, name: employee.name, hourlyRate: Number(employee.hourlyRate) || 0 };
+                    const stats = employeeStats.get(employeeKey) || { totalHours: 0, name: employee.name, hourlyRate: Number(employee.hourlyRate) || 0 };
                     stats.totalHours += Number(log.hoursWorked) || 0;
-                    employeeStats.set(log.employeeSlug, stats);
+                    employeeStats.set(employeeKey, stats);
                 });
             }
         });
@@ -87,8 +110,8 @@ const StatsDashboard = () => {
             total: Number(r.revenue) || 0
         }));
         const employeeSlugs = new Set<string>();
-        todaysReports.forEach(r => r.workLogs?.forEach(log => employeeSlugs.add(log.employeeSlug)));
-        const employeesToday = Array.from(employeeSlugs).map(slug => employees.find(e => e.slug === slug)?.name || "Nieznany");
+        todaysReports.forEach(r => r.workLogs?.forEach(log => employeeSlugs.add(log.employeeSlug || String(log.employeeId || "unknown"))));
+        const employeesToday = Array.from(employeeSlugs).map(slug => employees.find(e => e.slug === slug || String(e.id) === slug)?.name || "Nieznany");
         return { totalRevenue, revenueByLocation, employeesToday };
     }, [reports, locations, employees]);
 
@@ -139,10 +162,10 @@ const StatsDashboard = () => {
                         <CardContent className="space-y-4">
                              <div>
                                 <p className="text-sm text-text-secondary">Dzisiejszy utarg</p>
-                                <p className="text-2xl font-bold text-text-primary">{formatCurrency(todaysStats?.totalRevenue ?? 0)}</p>
+                                <p className="text-2xl font-bold text-text-primary">{todaysStats.totalRevenue > 0 ? formatCurrency(todaysStats.totalRevenue) : "Brak danych"}</p>
                             </div>
                             <div className="space-y-2">
-                               {todaysStats.revenueByLocation.length === 0 ? <p className="text-text-muted text-sm">Brak raportów</p> : todaysStats.revenueByLocation.map(loc => (
+                               {todaysStats.revenueByLocation.length === 0 ? <p className="text-text-muted text-sm">Brak danych</p> : todaysStats.revenueByLocation.map(loc => (
                                     <div key={loc.name} className="flex justify-between text-sm">
                                         <span className="text-text-primary">{loc.name}</span>
                                         <span className="font-medium text-text-primary">{formatCurrency(loc.total)}</span>

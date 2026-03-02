@@ -5,6 +5,7 @@ export interface Employee {
     icon: string;
     color: string;
     isActive: boolean;
+    slug?: string;
 }
 
 export interface Location {
@@ -31,4 +32,19 @@ export interface Category {
     icon: string;
     color: string;
     isActive: boolean;
+}
+
+export interface WorkLog {
+    hoursWorked: number;
+    employeeSlug?: string;
+    employeeId?: number;
+}
+
+export interface Report {
+    id?: number;
+    date: string;
+    locationId: number;
+    revenue: number;
+    cardRevenue?: number;
+    workLogs?: WorkLog[];
 }

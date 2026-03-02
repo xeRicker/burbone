@@ -16,7 +16,7 @@ export async function fetchAllData() {
       revenue: Number(r.revenue) || 0,
       cardRevenue: Number(r.cardRevenue) || 0,
       employees: r.workLogs?.reduce((acc: any, log: any) => {
-        const emp = employees.find((e: any) => e.id === log.employeeId);
+        const emp = employees.find((e: any) => e.slug === log.employeeSlug) || employees.find((e: any) => e.id === log.employeeId);
         if (emp) acc[emp.name] = log.hoursWorked;
         return acc;
       }, {}) || {},

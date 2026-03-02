@@ -82,7 +82,7 @@ export const statsService = {
     const startDate = startOfDay(parseISO(from));
     const endDate = endOfDay(parseISO(to));
 
-    const employeeStats = new Map<number, { totalHours: number, name: string, hourlyRate: number }>();
+    const employeeStats = new Map<string, { totalHours: number, name: string, hourlyRate: number }>();
 
     reports.forEach((r: any) => {
       const reportDate = parse(r.date, 'yyyy-MM-dd', new Date());
@@ -91,13 +91,15 @@ export const statsService = {
 
       if (inDateRange && matchesLocation && r.workLogs) {
         r.workLogs.forEach((log: any) => {
-          const stats = employeeStats.get(log.employeeId) || { 
+          const employee = employees.find((e: any) => e.slug === log.employeeSlug) || employees.find((e: any) => e.id === log.employeeId);
+          const employeeKey = log.employeeSlug || String(log.employeeId || "unknown");
+          const stats = employeeStats.get(employeeKey) || { 
             totalHours: 0, 
-            name: employees.find((e: any) => e.id === log.employeeId)?.name || "Nieznany",
-            hourlyRate: Number(employees.find((e: any) => e.id === log.employeeId)?.hourlyRate) || 29
+            name: employee?.name || "Nieznany",
+            hourlyRate: Number(employee?.hourlyRate) || 29
           };
           stats.totalHours += Number(log.hoursWorked) || 0;
-          employeeStats.set(log.employeeId, stats);
+          employeeStats.set(employeeKey, stats);
         });
       }
     });
@@ -156,14 +158,15 @@ export const statsService = {
       total: Number(r.revenue) || 0
     }));
 
-    const employeeIds = new Set<number>();
+    const employeeKeys = new Set<string>();
     todaysReports.forEach((r: any) => {
-      r.workLogs?.forEach((log: any) => employeeIds.add(log.employeeId));
+      r.workLogs?.forEach((log: any) => employeeKeys.add(log.employeeSlug || String(log.employeeId || "unknown")));
     });
 
-    const employeesToday = Array.from(employeeIds).map(id => 
-      employees.find((e: any) => e.id === id)?.name || "Nieznany"
-    );
+    const employeesToday = Array.from(employeeKeys).map((key) => {
+      const employee = employees.find((e: any) => e.slug === key) || employees.find((e: any) => String(e.id) === key);
+      return employee?.name || "Nieznany";
+    });
 
     return {
       totalRevenue,
