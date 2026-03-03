@@ -151,10 +151,14 @@ export default function GeneratorPage() {
                 <button
                   key={loc.id}
                   onClick={() => generateReport(loc.name)}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-bg-raised hover:bg-primary-subtle hover:text-primary transition-all text-left"
+                  className="flex items-center gap-4 p-3 rounded-xl bg-bg-raised hover:bg-hover-overlay transition-all text-left border-l-4"
+                  style={{ borderColor: loc.color }}
                 >
-                  <div className="w-12 h-12 rounded-full bg-primary-subtle text-primary flex items-center justify-center">
-                    <Icon name={loc.icon.length > 20 ? 'location_on' : loc.icon} size={24} />
+                  <div 
+                    className="w-12 h-12 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: `${loc.color}20`, color: loc.color }}
+                  >
+                    <Icon name={loc.icon} size={24} />
                   </div>
                   <span className="title-medium uppercase">{loc.name}</span>
                 </button>

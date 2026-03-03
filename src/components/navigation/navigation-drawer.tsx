@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils/cn';
 import { Icon } from '@/components/ui/icon';
@@ -49,8 +50,8 @@ export function NavigationDrawer() {
 
       {/* Desktop Navigation Drawer (Left) */}
       <aside className="fixed left-0 top-0 bottom-0 w-72 bg-bg-raised border-r border-border-subtle hidden lg:flex flex-col p-3 z-50">
-        <div className="px-6 py-8">
-          <h1 className="headline-small font-bold text-primary tracking-tight">BURBONE</h1>
+        <div className="flex items-center h-[88px] px-6">
+          <Image src="/favicon.png" alt="Burbone Logo" width={48} height={48} />
         </div>
         
         <nav className="flex-1 space-y-1">

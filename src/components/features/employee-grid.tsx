@@ -16,6 +16,18 @@ export function EmployeeGrid() {
   const { employees: reportEmployees, setEmployeeShift } = useReportStore();
 
   const [activeEmpId, setActiveEmpId] = React.useState<string | null>(null);
+  const [isCustomTimeOpen, setIsCustomTimeOpen] = React.useState(false);
+  const [customStart, setCustomStart] = React.useState('');
+  const [customEnd, setCustomEnd] = React.useState('');
+
+  const handleTimeChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+    const cleaned = value.replace(/[^\d]/g, '');
+    const chars = cleaned.split('');
+    if (chars.length > 2) {
+      chars.splice(2, 0, ':');
+    }
+    setter(chars.join('').slice(0, 5));
+  };
 
   if (employees.length === 0) return null;
 
@@ -45,10 +57,10 @@ export function EmployeeGrid() {
               >
                 <div className="flex items-center gap-3">
                   <div 
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" 
-                    style={{ backgroundColor: emp.color }} 
+                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: `${emp.color}20`, color: emp.color }} 
                   >
-                    {emp.name.charAt(0)}
+                    <Icon name="person" size={20} />
                   </div>
                   <span className={cn("body-large", isActive ? "text-primary font-bold" : "text-text-primary")}>
                     {emp.name}
@@ -75,41 +87,84 @@ export function EmployeeGrid() {
         </div>
       </Card>
 
-      <Dialog isOpen={!!activeEmpId} onClose={() => setActiveEmpId(null)} title={`Wybierz godziny: ${activeEmpConfig?.name || ''}`}>
+      <Dialog isOpen={!!activeEmpId} onClose={() => { setActiveEmpId(null); setIsCustomTimeOpen(false); }} title={`Wybierz godziny: ${activeEmpConfig?.name || ''}`}>
         <div className="space-y-6">
-          <div className="grid grid-cols-2 gap-2">
-            {TIME_PRESETS.map(p => (
-              <button
-                key={p.value}
-                onClick={() => {
-                  if (activeEmpId) {
-                    const [s, e] = p.value.split('-');
-                    setEmployeeShift(activeEmpId, s!, e!);
-                    setActiveEmpId(null);
-                  }
-                }}
-                className="h-12 bg-bg-raised hover:bg-primary-subtle hover:text-primary border border-border-subtle rounded-lg flex items-center justify-center title-medium transition-colors"
+          {isCustomTimeOpen ? (
+            <div className="space-y-4 pt-2">
+              <div className="flex items-center gap-2">
+                <input
+                    value={customStart}
+                    onChange={(e) => handleTimeChange(setCustomStart, e.target.value)}
+                    placeholder="HH:MM"
+                    className="w-full bg-bg-input h-14 px-4 rounded-md border-b-2 border-border-default focus:border-primary transition-colors outline-none body-large text-center tracking-widest"
+                />
+                <span className="text-text-muted pb-2">-</span>
+                <input
+                    value={customEnd}
+                    onChange={(e) => handleTimeChange(setCustomEnd, e.target.value)}
+                    placeholder="HH:MM"
+                    className="w-full bg-bg-input h-14 px-4 rounded-md border-b-2 border-border-default focus:border-primary transition-colors outline-none body-large text-center tracking-widest"
+                />
+              </div>
+              <Button
+                  onClick={() => {
+                      if (activeEmpId && customStart.match(/^\d{2}:\d{2}$/) && customEnd.match(/^\d{2}:\d{2}$/)) {
+                          setEmployeeShift(activeEmpId, customStart, customEnd);
+                          setActiveEmpId(null);
+                          setIsCustomTimeOpen(false);
+                      }
+                  }}
+                  className="w-full"
+                  disabled={!customStart.match(/^\d{2}:\d{2}$/) || !customEnd.match(/^\d{2}:\d{2}$/)}
               >
-                {p.label}
-              </button>
-            ))}
-          </div>
-
-          {reportEmployees[activeEmpId || '']?.start && (
-            <div className="pt-4 border-t border-border-subtle">
-              <Button 
-                variant="outlined" 
-                className="w-full text-error border-error hover:bg-error-subtle"
-                onClick={() => {
-                  if (activeEmpId) {
-                    setEmployeeShift(activeEmpId, '', '');
-                    setActiveEmpId(null);
-                  }
-                }}
-              >
-                Usuń zmiany
+                  Zapisz godziny
               </Button>
+              <Button variant="text" onClick={() => setIsCustomTimeOpen(false)}>Anuluj</Button>
             </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 gap-2">
+                {TIME_PRESETS.map(p => (
+                  <button
+                    key={p.value}
+                    onClick={() => {
+                      if (activeEmpId) {
+                        const [s, e] = p.value.split('-');
+                        setEmployeeShift(activeEmpId, s!, e!);
+                        setActiveEmpId(null);
+                      }
+                    }}
+                    className="h-12 bg-bg-raised hover:bg-primary-subtle hover:text-primary border border-border-subtle rounded-lg flex items-center justify-center title-medium transition-colors"
+                  >
+                    {p.label}
+                  </button>
+                ))}
+                <button
+                  onClick={() => { setCustomStart(''); setCustomEnd(''); setIsCustomTimeOpen(true); }}
+                  className="h-12 bg-bg-elevated hover:bg-primary-subtle hover:text-primary border border-border-default rounded-lg flex items-center justify-center title-medium transition-colors col-span-2 gap-2"
+                >
+                  <Icon name="schedule" />
+                  Ustaw własny
+                </button>
+              </div>
+
+              {reportEmployees[activeEmpId || '']?.start && (
+                <div className="pt-4 border-t border-border-subtle">
+                  <Button 
+                    variant="outlined" 
+                    className="w-full text-error border-error hover:bg-error-subtle"
+                    onClick={() => {
+                      if (activeEmpId) {
+                        setEmployeeShift(activeEmpId, '', '');
+                        setActiveEmpId(null);
+                      }
+                    }}
+                  >
+                    Usuń zmiany
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </Dialog>

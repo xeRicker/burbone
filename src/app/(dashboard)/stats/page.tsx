@@ -266,7 +266,10 @@ export default function StatsPage() {
       {/* Main Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card variant="elevated" className="p-5 flex flex-col gap-2 border-b-4 border-primary lg:col-span-2 justify-center">
-          <span className="text-text-secondary label-small font-bold uppercase tracking-wider">Utarg całkowity ({selectedWeek === 'all' ? 'Miesiąc' : `Tydzień ${parseInt(selectedWeek)+1}`})</span>
+          <div className="flex items-center gap-2 text-text-secondary">
+            <Icon name="payments" size={16} />
+            <span className="label-small font-bold uppercase tracking-wider">Utarg całkowity ({selectedWeek === 'all' ? 'Miesiąc' : `Tydzień ${parseInt(selectedWeek)+1}`})</span>
+          </div>
           <div className="flex items-baseline gap-4">
             <span className="display-medium text-primary">{totalRev.toFixed(2)} zł</span>
             <span className="title-medium text-text-muted whitespace-nowrap">(Karty: {totalCardRev.toFixed(2)} zł)</span>
@@ -276,13 +279,25 @@ export default function StatsPage() {
           </p>
         </Card>
         
-        {Object.entries(locRevs).map(([loc, rev]) => (
-           <Card key={loc} variant="elevated" className="p-5 flex flex-col gap-1 border-b-4" style={{ borderColor: getLocationColor(loc) }}>
-             <span className="text-text-secondary label-small font-bold uppercase tracking-wider">{loc}</span>
-             <span className="headline-medium">{rev.total.toFixed(2)} zł</span>
-             <span className="label-small text-text-muted">w tym karty: {rev.card.toFixed(2)} zł</span>
-           </Card>
-        ))}
+        {Object.entries(locRevs).map(([locName, rev]) => {
+           const locConfig = locations.find(l => l.name === locName);
+           return (
+             <Card key={locName} variant="elevated" className="p-5 flex flex-col gap-2 border-b-4" style={{ borderColor: locConfig?.color || '#FF8C42' }}>
+               <div className="flex items-center gap-2 text-text-secondary">
+                 <Icon name={locConfig?.icon || 'storefront'} size={16} />
+                 <span className="label-small font-bold uppercase tracking-wider">{locName}</span>
+               </div>
+               <div className="flex flex-col">
+                 <span className="label-small text-text-muted">Utarg:</span>
+                 <span className="title-large text-text-primary">{rev.total.toFixed(2)} zł</span>
+               </div>
+               <div className="flex flex-col">
+                 <span className="label-small text-text-muted">Karty:</span>
+                 <span className="body-large font-medium text-text-secondary">{rev.card.toFixed(2)} zł</span>
+               </div>
+             </Card>
+           );
+        })}
       </div>
 
       {/* Chart Visualization */}
@@ -298,54 +313,73 @@ export default function StatsPage() {
           </div>
         </div>
         
-        <div className="h-72 flex items-end gap-2 md:gap-4 px-2 overflow-x-auto custom-scrollbar pb-2">
-          {chartData.map((d, i) => {
-            const hPct = Math.max((d.total / maxChartRev) * 100, 2);
-            return (
-              <div key={i} className="flex-1 min-w-[24px] flex flex-col items-center gap-2 group h-full">
-                <div className="relative w-full flex justify-center h-full items-end">
-                  {/* Tooltip */}
-                  <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 bg-bg-highest text-text-primary text-xs p-3 rounded-xl shadow-lg pointer-events-none z-20 whitespace-nowrap border border-border-subtle transition-opacity">
-                    <div className="font-bold text-primary mb-1 border-b border-border-subtle pb-1">
-                      {d.date} {format(monthDate, 'LLLL', { locale: pl })} (Suma: {d.total.toFixed(2)} zł)
-                    </div>
-                    {Object.entries(d.locs).map(([l, v], idx) => (
-                      <div key={idx} className="flex justify-between gap-4 py-0.5">
-                        <span className="flex items-center gap-1">
-                          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getLocationColor(l) }} />
-                          {l}
-                        </span>
-                        <span className="font-medium">{v.toFixed(2)} zł</span>
+        <div className="flex items-end">
+          <div className="h-72 w-20 pr-4 flex flex-col justify-between text-right text-text-muted label-small pb-8">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span key={i}>{(maxChartRev / 4 * (4 - i)).toFixed(0)} zł</span>
+            ))}
+          </div>
+          <div className="h-72 flex-1 flex items-end gap-2 md:gap-4 px-2 overflow-x-auto custom-scrollbar pb-2 border-l border-border-subtle pt-4">
+            {chartData.map((d, i) => {
+              const hPct = Math.max((d.total / maxChartRev) * 100, 2);
+              return (
+                <div key={i} className="flex-1 min-w-[24px] flex flex-col items-center gap-2 group h-full">
+                  <div className="relative w-full flex justify-center h-full items-end">
+                    {/* Tooltip */}
+                    <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 bg-bg-highest text-text-primary text-xs p-3 rounded-xl shadow-lg pointer-events-none z-20 whitespace-nowrap border border-border-subtle transition-opacity">
+                      <div className="font-bold text-primary mb-1 border-b border-border-subtle pb-1">
+                        {d.date} {format(monthDate, 'LLLL', { locale: pl })} (Suma: {d.total.toFixed(2)} zł)
                       </div>
-                    ))}
+                      {Object.entries(d.locs).map(([l, v], idx) => (
+                        <div key={idx} className="flex justify-between gap-4 py-0.5">
+                          <span className="flex items-center gap-1">
+                            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getLocationColor(l) }} />
+                            {l}
+                          </span>
+                          <span className="font-medium">{v.toFixed(2)} zł</span>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    {chartType === 'bar' ? (
+                      <div className="w-full max-w-[40px] flex flex-col justify-end transition-all duration-500 rounded-t-sm overflow-hidden" style={{ height: `${hPct}%` }}>
+                        {Object.entries(d.locs).map(([l, v], idx) => {
+                          const segmentPct = d.total > 0 ? (v / d.total) * 100 : 0;
+                          return (
+                            <div 
+                              key={idx} 
+                              style={{ height: `${segmentPct}%`, backgroundColor: getLocationColor(l) }} 
+                              className="w-full hover:brightness-110 transition-all pointer-events-none"
+                            />
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="relative w-full h-full">
+                        <div className="absolute w-3 h-3 rounded-full bg-primary z-10" style={{ bottom: `calc(${hPct}% - 6px)`, left: '50%', transform: 'translateX(-50%)' }} />
+                        {i < chartData.length - 1 && (() => {
+                          const hPctNext = Math.max((chartData[i + 1]!.total / maxChartRev) * 100, 2);
+                          return (
+                            <svg className="absolute top-0 left-0 w-full h-full overflow-visible z-0">
+                              <line
+                                x1="50%"
+                                y1={`${100 - hPct}%`}
+                                x2="150%"
+                                y2={`${100 - hPctNext}%`}
+                                stroke="var(--color-primary)"
+                                strokeWidth="2"
+                              />
+                            </svg>
+                          );
+                        })()}
+                      </div>
+                    )}
                   </div>
-                  
-                  {chartType === 'bar' ? (
-                    <div className="w-full max-w-[40px] flex flex-col justify-end transition-all duration-500 rounded-t-sm overflow-hidden" style={{ height: `${hPct}%` }}>
-                      {Object.entries(d.locs).map(([l, v], idx) => {
-                        const segmentPct = (v / d.total) * 100;
-                        return (
-                          <div 
-                            key={idx} 
-                            style={{ height: `${segmentPct}%`, backgroundColor: getLocationColor(l) }} 
-                            className="w-full hover:brightness-110 transition-all"
-                          />
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <div className="w-full flex items-center justify-center">
-                       <div className="w-3 h-3 rounded-full bg-primary mb-1 z-10" style={{ marginBottom: `${hPct}%` }} />
-                       {i < chartData.length - 1 && (
-                          <div className="absolute w-full h-[2px] bg-primary/50 top-1/2 left-1/2 origin-left" style={{ bottom: `${hPct}%` }} />
-                       )}
-                    </div>
-                  )}
+                  <span className="label-small text-text-muted">{d.date}</span>
                 </div>
-                <span className="label-small text-text-muted">{d.date}</span>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </Card>
 
@@ -394,7 +428,7 @@ export default function StatsPage() {
                              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getLocationColor(r.location) }} />
                              {r.location}
                           </span>
-                          <span className="font-medium text-success">{r.revenue} zł <span className="text-text-muted text-[10px]">(K: {r.cardRevenue || 0})</span></span>
+                          <span className="font-medium text-success">{r.revenue} zł <span className="text-text-muted text-[10px]">(K: {r.cardRevenue || 0} zł)</span></span>
                         </div>
                       ))}
                       <div className="mt-2 pt-2 border-t border-border-subtle text-text-muted leading-relaxed flex flex-col gap-1">
@@ -468,9 +502,9 @@ export default function StatsPage() {
                       )}
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="title-large text-success">{data.salary.toFixed(2)}</div>
-                    <span className="text-[10px] text-text-muted">PLN</span>
+                  <div className="text-right flex items-baseline justify-end gap-1">
+                    <span className="title-large text-success">{data.salary.toFixed(2)}</span>
+                    <span className="body-small text-success">zł</span>
                   </div>
                 </div>
               );
@@ -507,25 +541,29 @@ export default function StatsPage() {
                     </div>
                     <div className="flex flex-col sm:items-end">
                        <span className="title-large text-success">Utarg: {daySum.toFixed(2)} zł</span>
-                       <span className="label-small text-text-secondary">W tym karty: {dayCardSum.toFixed(2)} zł</span>
+                       <span className="label-small text-text-secondary">Karty: {dayCardSum.toFixed(2)} zł</span>
                     </div>
                   </div>
                   <div className="divide-y divide-border-subtle bg-bg-base">
                     {dayReps.map((r, i) => {
-                       const locColor = getLocationColor(r.location);
+                       const locConfig = locations.find(l => l.name === r.location);
                        return (
-                         <div key={i} className="p-4 flex flex-col sm:flex-row justify-between gap-4 hover:bg-hover-overlay transition-colors">
+                         <div key={i} className="p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:bg-hover-overlay transition-colors">
                             <div className="flex items-center gap-3">
-                               <div className="w-10 h-10 rounded-full text-white flex items-center justify-center" style={{ backgroundColor: locColor }}>
-                                  <Icon name="storefront" size={20} />
+                               <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: `${locConfig?.color || '#FF8C42'}20`, color: locConfig?.color || '#FF8C42' }}>
+                                  <Icon name={locConfig?.icon || 'storefront'} size={20} />
                                </div>
-                               <div className="flex flex-col">
-                                  <span className="title-medium">{r.location}</span>
-                                  <span className="label-small text-text-muted">Karty: {r.cardRevenue || 0} zł</span>
-                               </div>
+                               <span className="title-medium">{r.location}</span>
                             </div>
-                            <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto">
-                               <span className="title-medium text-text-primary">{r.revenue} zł</span>
+                            <div className="flex items-center justify-end gap-4 sm:gap-8 w-full sm:w-auto">
+                              <div className="text-right">
+                                <span className="label-small text-text-muted block">Utarg</span>
+                                <span className="title-medium text-text-primary">{r.revenue} zł</span>
+                              </div>
+                              <div className="text-right">
+                                <span className="label-small text-text-muted block">Karty</span>
+                                <span className="body-large font-medium text-text-secondary">{r.cardRevenue || 0} zł</span>
+                              </div>
                             </div>
                          </div>
                        );

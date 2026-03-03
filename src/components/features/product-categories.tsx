@@ -71,7 +71,7 @@ function ProductCard({ item }: { item: { id: string; name: string; type: string 
         isSelected && "bg-primary-subtle border-primary shadow-glow-primary"
       )}
     >
-      <span className={cn("body-medium truncate", isSelected ? "text-primary font-medium" : "text-text-primary")}>
+      <span className={cn("body-medium line-clamp-2", isSelected ? "text-primary font-medium" : "text-text-primary")}>
         {item.name}
       </span>
       <div className="flex items-center justify-between gap-2">

@@ -53,8 +53,8 @@ export default function EmployeesPage() {
   };
 
   return (
-    <div className="p-6 space-y-6">
-      <header className="flex items-center justify-between mb-8">
+    <div className="p-4 space-y-6 max-w-5xl mx-auto pb-24">
+      <header className="flex items-center justify-between">
         <div>
           <h1 className="headline-large text-primary">Ekipa</h1>
           <p className="text-text-secondary body-medium">Zarządzaj pracownikami i stawkami</p>
@@ -67,50 +67,48 @@ export default function EmployeesPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {employees.map((emp) => (
-          <Card key={emp.id} variant="elevated" className="p-4 flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div 
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
-                  style={{ backgroundColor: emp.color }}
-                >
-                  {emp.name.charAt(0)}
-                </div>
-                <div className="flex flex-col">
-                  <h3 className="body-large font-medium">{emp.name}</h3>
-                  <span className="text-text-muted text-[11px]">{emp.rate} zł/h</span>
-                </div>
-              </div>
-              
-              <button 
-                onClick={() => updateEmployee(emp.id, { enabled: !emp.enabled })}
-                className={cn(
-                  "w-10 h-5 rounded-full p-0.5 transition-colors",
-                  emp.enabled ? 'bg-primary' : 'bg-bg-highest'
-                )}
+          <Card key={emp.id} variant="filled" className="p-4 flex flex-col gap-4 border-l-4" style={{ borderColor: emp.color }}>
+            <div className="flex items-center gap-3">
+              <div 
+                className="w-10 h-10 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: `${emp.color}20`, color: emp.color }}
               >
-                <div className={cn(
-                  "w-4 h-4 bg-white rounded-full transition-transform",
-                  emp.enabled ? 'translate-x-5' : 'translate-x-0'
-                )} />
-              </button>
+                <Icon name="person" size={20} />
+              </div>
+              <div className="flex flex-col">
+                <h3 className="body-large font-medium">{emp.name}</h3>
+                <span className="text-text-muted text-[11px]">{emp.rate} zł/h</span>
+              </div>
             </div>
 
-            <div className="flex items-center justify-between pt-2 border-t border-border-subtle">
+            <div className="flex items-center justify-between">
               <span className={cn(
-                "text-[10px] font-bold px-2 py-0.5 rounded-full",
+                "label-medium px-2 py-0.5 rounded-full",
                 emp.enabled ? "bg-success-subtle text-success" : "bg-bg-highest text-text-disabled"
               )}>
                 {emp.enabled ? "AKTYWNY" : "WYŁĄCZONY"}
               </span>
-              
-              <button 
-                onClick={() => openEdit(emp)}
-                className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary"
-                title="Edytuj"
-              >
-                <Icon name="edit" size={18} />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => updateEmployee(emp.id, { enabled: !emp.enabled })}
+                  className={cn(
+                    "w-10 h-5 rounded-full p-0.5 transition-colors",
+                    emp.enabled ? 'bg-primary' : 'bg-bg-highest'
+                  )}
+                >
+                  <div className={cn(
+                    "w-4 h-4 bg-white rounded-full transition-transform",
+                    emp.enabled ? 'translate-x-5' : 'translate-x-0'
+                  )} />
+                </button>
+                <button 
+                  onClick={() => openEdit(emp)}
+                  className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary ml-1"
+                  title="Edytuj"
+                >
+                  <Icon name="edit" size={18} />
+                </button>
+              </div>
             </div>
           </Card>
         ))}

@@ -107,7 +107,7 @@ export default function ProductsPage() {
           <section key={cat.id} className="space-y-3">
             <Card variant="filled" className="p-3 bg-bg-raised flex flex-col sm:flex-row sm:items-center justify-between border-l-4 gap-3" style={{ borderColor: cat.color || '#FF8C42' }}>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center text-white" style={{ backgroundColor: cat.color || '#FF8C42' }}>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: `${cat.color}20`, color: cat.color }}>
                   <Icon name={cat.icon.length > 20 || !M3_ICONS.includes(cat.icon) ? 'inventory_2' : cat.icon} size={20} />
                 </div>
                 <div>
@@ -171,11 +171,11 @@ export default function ProductsPage() {
                   "p-2 px-3 flex items-center justify-between transition-opacity",
                   !item.enabled && "opacity-50"
                 )}>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col min-w-0">
                     <span className="body-medium font-medium">{item.name}</span>
                     <span className="label-small text-text-muted flex items-center gap-1">
                       <Icon name={item.type === 's' ? "check_box" : "tag"} size={16} />
-                      {item.type === 's' ? "Tylko wybór" : "Z ilością"}
+                      {item.type === 's' ? "Wybór" : "Ilość"}
                     </span>
                   </div>
                   
@@ -292,7 +292,7 @@ export default function ProductsPage() {
                   className="hidden"
                 />
                 <Icon name="tag" size={20} className={formProdType === '' ? 'text-primary' : 'text-text-muted'} />
-                <span className={formProdType === '' ? 'text-primary font-medium' : 'text-text-secondary'}>Z ilością</span>
+                <span className={formProdType === '' ? 'text-primary font-medium' : 'text-text-secondary'}>Ilość</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer p-3 bg-bg-elevated rounded-lg flex-1 border border-transparent has-[:checked]:border-primary has-[:checked]:bg-primary-subtle transition-all">
                 <input 
@@ -303,7 +303,7 @@ export default function ProductsPage() {
                   className="hidden"
                 />
                 <Icon name="check_box" size={20} className={formProdType === 's' ? 'text-primary' : 'text-text-muted'} />
-                <span className={formProdType === 's' ? 'text-primary font-medium' : 'text-text-secondary'}>Tylko wybór</span>
+                <span className={formProdType === 's' ? 'text-primary font-medium' : 'text-text-secondary'}>Wybór</span>
               </label>
             </div>
           </div>

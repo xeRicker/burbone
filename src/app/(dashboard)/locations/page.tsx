@@ -54,8 +54,8 @@ export default function LocationsPage() {
   };
 
   return (
-    <div className="p-6 space-y-6">
-      <header className="flex items-center justify-between mb-8">
+    <div className="p-4 space-y-6 max-w-5xl mx-auto pb-24">
+      <header className="flex items-center justify-between">
         <div>
           <h1 className="headline-large text-primary">Lokalizacje</h1>
           <p className="text-text-secondary body-medium">Zarządzaj punktami sprzedaży</p>
@@ -68,41 +68,40 @@ export default function LocationsPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {locations.map((loc) => (
-          <Card key={loc.id} variant="elevated" className="p-4 flex items-center justify-between">
+          <Card key={loc.id} variant="filled" className="p-4 flex flex-col gap-4 border-l-4" style={{ borderColor: loc.color || '#FF8C42' }}>
             <div className="flex items-center gap-3">
               <div 
-                className="w-12 h-12 rounded-full text-white flex items-center justify-center"
-                style={{ backgroundColor: loc.color || '#FF8C42' }}
+                className="w-10 h-10 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: `${loc.color}20`, color: loc.color }}
               >
-                <Icon name={loc.icon.length > 20 || !M3_ICONS.includes(loc.icon) ? 'location_on' : loc.icon} size={24} />
+                <Icon name={M3_ICONS.includes(loc.icon) ? loc.icon : 'location_on'} size={20} />
               </div>
-              <div className="flex flex-col">
-                <h3 className="title-medium">{loc.name}</h3>
-                <span className={loc.enabled ? "text-success label-small" : "text-text-disabled label-small"}>
-                  {loc.enabled ? "AKTYWNY" : "WYŁĄCZONY"}
-                </span>
-              </div>
+              <span className="title-medium">{loc.name}</span>
             </div>
-            
-            <div className="flex items-center gap-2">
-               <button 
-                onClick={() => updateLocation(loc.id, { enabled: !loc.enabled })}
-                className={cn(
-                  "w-12 h-6 rounded-full p-1 transition-colors",
-                  loc.enabled ? 'bg-primary' : 'bg-bg-highest'
-                )}
-              >
-                <div className={cn(
-                  "w-4 h-4 bg-white rounded-full transition-transform",
-                  loc.enabled ? 'translate-x-6' : 'translate-x-0'
-                )} />
-              </button>
-              <button 
-                onClick={() => openEdit(loc)}
-                className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary"
-              >
-                <Icon name="edit" size={20} />
-              </button>
+            <div className="flex justify-between items-center">
+              <span className={cn(
+                "label-medium font-medium px-2 py-0.5 rounded-full",
+                loc.enabled ? "bg-success-subtle text-success" : "bg-bg-highest text-text-disabled"
+              )}>
+                {loc.enabled ? "AKTYWNY" : "WYŁĄCZONY"}
+              </span>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => updateLocation(loc.id, { enabled: !loc.enabled })}
+                  className={cn(
+                    "w-10 h-5 rounded-full p-0.5 transition-colors",
+                    loc.enabled ? 'bg-primary' : 'bg-bg-highest'
+                  )}
+                >
+                  <div className={cn(
+                    "w-4 h-4 bg-white rounded-full transition-transform",
+                    loc.enabled ? 'translate-x-5' : 'translate-x-0'
+                  )} />
+                </button>
+                <button onClick={() => openEdit(loc)} className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary ml-1">
+                  <Icon name="edit" size={18} />
+                </button>
+              </div>
             </div>
           </Card>
         ))}
