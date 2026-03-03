@@ -1,34 +1,48 @@
-import { Sidebar } from "@/components/navigation/sidebar";
-import { StoreHydrator } from "@/components/providers/store-hydrator";
-import { jsonDb } from "@/lib/json-db";
+'use client';
 
-async function getAllData() {
-  const [locations, employees, products, categories, reports] = await Promise.all([
-    jsonDb.getLocations(),
-    jsonDb.getEmployees(),
-    jsonDb.getProducts(),
-    jsonDb.getCategories(),
-    jsonDb.getReports(),
-  ]);
-  return { locations, employees, products, categories, reports };
-}
+import * as React from 'react';
+import { useRouter } from 'next/navigation';
+import { NavigationDrawer } from '@/components/navigation/navigation-drawer';
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const data = await getAllData();
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+  React.useEffect(() => {
+    // Basic password prompt like in the original app
+    const pass = sessionStorage.getItem('admin_pass');
+    if (pass === 'xdxdxd123') {
+      setIsAuthenticated(true);
+    } else {
+      const input = prompt('Hasło:');
+      if (input === 'xdxdxd123') {
+        sessionStorage.setItem('admin_pass', 'xdxdxd123');
+        setIsAuthenticated(true);
+      } else {
+        alert('Błędne hasło');
+        router.push('/');
+      }
+    }
+  }, [router]);
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-bg-base flex items-center justify-center">
+        <div className="text-primary headline-small animate-pulse">AUTORYZACJA...</div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <StoreHydrator data={data} />
-      <div className="flex min-h-screen">
-        <Sidebar />
-        <main className="flex-1 p-8 max-w-7xl mx-auto">
-          {children}
-        </main>
+    <div className="flex min-h-screen">
+      <NavigationDrawer />
+      <div className="flex-1 lg:pl-72">
+        {children}
       </div>
-    </>
+    </div>
   );
 }

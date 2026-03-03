@@ -1,0 +1,467 @@
+[
+  {
+    "id": "c1",
+    "name": "Drwal",
+    "icon": "star",
+    "color": "#FFD166",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p1",
+        "name": "Drwal: Kotlet Serowy",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p2",
+        "name": "Drwal: Sos Jalapeño",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p3",
+        "name": "Drwal: Żurawina",
+        "type": "s",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": "c2",
+    "name": "Warzywa",
+    "icon": "eco",
+    "color": "#2ecc71",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p4",
+        "name": "Sałata",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p5",
+        "name": "Ogórki",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p6",
+        "name": "Pomidory",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p7",
+        "name": "Cebula",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p8",
+        "name": "Jalapeno",
+        "type": "s",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": "c3",
+    "name": "Mięso",
+    "icon": "set_meal",
+    "color": "#e74c3c",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p9",
+        "name": "Mięso: Małe",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p10",
+        "name": "Mięso: Duże",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p11",
+        "name": "Stripsy",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p12",
+        "name": "Boczek",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p13",
+        "name": "Chorizo",
+        "type": "s",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": "c4",
+    "name": "Ser",
+    "icon": "lunch_dining",
+    "color": "#f1c40f",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p14",
+        "name": "Cheddar",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p15",
+        "name": "Halloumi",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p16",
+        "name": "Majonez",
+        "type": "s",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": "c5",
+    "name": "Frytki",
+    "icon": "fastfood",
+    "color": "#e67e22",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p17",
+        "name": "Frytki",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p18",
+        "name": "Placki",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p19",
+        "name": "Krążki",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p20",
+        "name": "Frytura",
+        "type": "s",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": "c6",
+    "name": "Pieczywo",
+    "icon": "bakery_dining",
+    "color": "#FF8C42",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p21",
+        "name": "Bułki",
+        "type": "",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": "c7",
+    "name": "Sosy i Przyprawy",
+    "icon": "soup_kitchen",
+    "color": "#9b59b6",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p22",
+        "name": "Cebula prażona",
+        "type": "",
+        "enabled": true
+      },
+      {
+        "id": "p23",
+        "name": "Sriracha",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p24",
+        "name": "Tabasco",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p25",
+        "name": "Przyprawa do grilla",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p26",
+        "name": "Sól do frytek",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p27",
+        "name": "Sos: Ketchup",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p28",
+        "name": "Sos: Carolina",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p29",
+        "name": "Sos: Czosnek",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p30",
+        "name": "Sos: Barbecue",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p31",
+        "name": "Sos: Sweet Chilli",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p32",
+        "name": "Saszetki: Ketchup",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p33",
+        "name": "Zbój: Czosnek",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p34",
+        "name": "Zbój: Pieprz",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p35",
+        "name": "Zbój: Cytryna",
+        "type": "s",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": "c8",
+    "name": "Napoje",
+    "icon": "local_drink",
+    "color": "#3498db",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p36",
+        "name": "Pepsi",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p37",
+        "name": "Pepsi Max",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p38",
+        "name": "Mirinda",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p39",
+        "name": "Lipton",
+        "type": "s",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": "c9",
+    "name": "Opakowania",
+    "icon": "shopping_bag",
+    "color": "#FF6B6B",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p40",
+        "name": "Torby: Małe",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p41",
+        "name": "Torby: Średnie",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p42",
+        "name": "Torby: Duże",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p43",
+        "name": "Sos: Pojemniki",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p44",
+        "name": "Sos: Pokrywki",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p45",
+        "name": "Opakowania na frytki",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p46",
+        "name": "Folia",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p47",
+        "name": "Serwetki",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p48",
+        "name": "Rękawiczki",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p49",
+        "name": "Papier pod grilla",
+        "type": "s",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": "c10",
+    "name": "Środki Czystości",
+    "icon": "cleaning_services",
+    "color": "#1abc9c",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p50",
+        "name": "Szmaty",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p51",
+        "name": "Zielony papier",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p52",
+        "name": "Odtłuszczacz",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p53",
+        "name": "Worki na śmieci 120L",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p54",
+        "name": "Lepy na muchy",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p55",
+        "name": "Woda 5L",
+        "type": "s",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": "c11",
+    "name": "Biurowe",
+    "icon": "edit_note",
+    "color": "#A0A0A0",
+    "enabled": true,
+    "items": [
+      {
+        "id": "p56",
+        "name": "Drobne: 1,2,5",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p57",
+        "name": "Drobne: 10,20",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p58",
+        "name": "Długopis",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p59",
+        "name": "Pisak",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p60",
+        "name": "Zeszyt",
+        "type": "s",
+        "enabled": true
+      },
+      {
+        "id": "p61",
+        "name": "Papier do kasy",
+        "type": "s",
+        "enabled": true
+      }
+    ]
+  }
+]

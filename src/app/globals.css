@@ -1,169 +1,128 @@
 @import "tailwindcss";
 
 @theme {
-  /* Font */
-  --font-sans: "Inter", sans-serif;
+  /* PRIMARY — neon orange */
+  --color-primary:                  #FF8C42;
+  --color-primary-hover:            #FFA060;
+  --color-primary-active:           #E07830;
+  --color-primary-muted:            #FFB88A;
+  --color-primary-subtle:           #2D1A0A;
+  --color-on-primary:               #1A0800;
+  --color-primary-container:        #3D1F00;
+  --color-on-primary-container:     #FFDCC2;
 
-  /* Border Radius */
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-full: 9999px;
-  
-  /* ========================================
-     BRAND — PRIMARY (neon orange)
-     ======================================== */
-  --color-primary: #FF8C42;
-  --color-primary-hover: #FFA060;
-  --color-primary-active: #E07830;
-  --color-primary-muted: #FFB88A;
-  --color-primary-subtle: #2D1A0A;
+  /* SECONDARY — blue */
+  --color-secondary:                #42B4FF;
+  --color-secondary-hover:          #60C4FF;
+  --color-secondary-active:         #2898E0;
+  --color-secondary-muted:          #8AD4FF;
+  --color-secondary-subtle:         #0A1926;
+  --color-on-secondary:             #001428;
+  --color-secondary-container:      #003A5C;
+  --color-on-secondary-container:   #C8E8FF;
 
-  /* ========================================
-     BRAND — ACCENT (complementary blue)
-     ======================================== */
-  --color-accent: #42B4FF;
-  --color-accent-hover: #60C4FF;
-  --color-accent-active: #2898E0;
-  --color-accent-muted: #8AD4FF;
-  --color-accent-subtle: #0A1926;
+  /* TERTIARY — warm yellow */
+  --color-tertiary:                 #FFD166;
+  --color-on-tertiary:              #221A00;
+  --color-tertiary-container:       #3D3000;
+  --color-on-tertiary-container:    #FFEEA8;
 
-  /* ========================================
-     SURFACES (ciemne tła, ciepły podton)
-     ======================================== */
-  --color-bg-base: #0E0B0A;
-  --color-bg-raised: #1A1412;
-  --color-bg-overlay: #241C1A;
-  --color-bg-elevated: #2E2522;
-  --color-bg-highest: #3A302C;
-  --color-bg-input: #161110;
+  /* SURFACES */
+  --color-bg-base:       #0E0B0A;
+  --color-bg-raised:     #1A1412;
+  --color-bg-overlay:    #241C1A;
+  --color-bg-elevated:   #2E2522;
+  --color-bg-highest:    #3A302C;
+  --color-bg-input:      #161110;
 
-  /* ========================================
-     TEKST
-     ======================================== */
-  --color-text-primary: #F0DDD6;
-  --color-text-secondary: #B8A49C;
-  --color-text-muted: #7A6B64;
-  --color-text-disabled: #4A3F3B;
-  --color-text-on-primary: #1A0800;
-  --color-text-on-accent: #001428;
-  --color-text-on-success: #002208;
-  --color-text-on-warning: #221A00;
-  --color-text-on-error: #220404;
+  /* TEXT */
+  --color-text-primary:    #F0DDD6;
+  --color-text-secondary:  #B8A49C;
+  --color-text-muted:      #7A6B64;
+  --color-text-disabled:   #4A3F3B;
 
-  /* ========================================
-     BORDER
-     ======================================== */
-  --color-border-subtle: #261E1C;
+  /* BORDER */
+  --color-border-subtle:  #261E1C;
   --color-border-default: #3A302C;
-  --color-border-hover: #5A4E48;
-  --color-border-focus: #FF8C42;
+  --color-border-hover:   #5A4E48;
+  --color-border-focus:   #FF8C42;
 
-  /* ========================================
-     STATUS — SUCCESS (green)
-     ======================================== */
-  --color-success: #66D97A;
-  --color-success-hover: #7AE68C;
-  --color-success-active: #52C266;
-  --color-success-muted: #A3E8B0;
-  --color-success-subtle: #122216;
-  --color-success-border: #2D5C36;
+  /* SUCCESS */
+  --color-success:        #66D97A;  --color-success-hover:  #7AE68C;
+  --color-success-active: #52C266;  --color-success-muted:  #A3E8B0;
+  --color-success-subtle: #122216;  --color-success-border: #2D5C36;
+  --color-on-success:     #002208;
 
-  /* ========================================
-     STATUS — WARNING (amber)
-     ======================================== */
-  --color-warning: #FFD166;
-  --color-warning-hover: #FFDC85;
-  --color-warning-active: #E0B84D;
-  --color-warning-muted: #FFE49E;
-  --color-warning-subtle: #262010;
-  --color-warning-border: #5C4D20;
+  /* WARNING */
+  --color-warning:        #FFD166;  --color-warning-hover:  #FFDC85;
+  --color-warning-active: #E0B84D;  --color-warning-muted:  #FFE49E;
+  --color-warning-subtle: #262010;  --color-warning-border: #5C4D20;
+  --color-on-warning:     #221A00;
 
-  /* ========================================
-     STATUS — ERROR (red)
-     ======================================== */
-  --color-error: #FF6B6B;
-  --color-error-hover: #FF8585;
-  --color-error-active: #E05252;
-  --color-error-muted: #FFAAAA;
-  --color-error-subtle: #261212;
-  --color-error-border: #5C2020;
+  /* ERROR */
+  --color-error:        #FF6B6B;  --color-error-hover:  #FF8585;
+  --color-error-active: #E05252;  --color-error-muted:  #FFAAAA;
+  --color-error-subtle: #261212;  --color-error-border: #5C2020;
+  --color-on-error:     #220404;
 
-  /* ========================================
-     STATUS — INFO (blue)
-     ======================================== */
-  --color-info: #64B5F6;
-  --color-info-hover: #82C6F8;
-  --color-info-active: #4AA0E0;
-  --color-info-muted: #A8D5FA;
-  --color-info-subtle: #0E1926;
-  --color-info-border: #1E3A5C;
+  /* INFO */
+  --color-info:        #64B5F6;  --color-info-hover:  #82C6F8;
+  --color-info-active: #4AA0E0;  --color-info-muted:  #A8D5FA;
+  --color-info-subtle: #0E1926;  --color-info-border: #1E3A5C;
 
-  /* ========================================
-     INTERACTIVE STATES (overlays)
-     ======================================== */
-  --color-hover-overlay: rgba(255, 140, 66, 0.08);
+  /* INTERACTIVE */
+  --color-hover-overlay:  rgba(255, 140, 66, 0.08);
   --color-active-overlay: rgba(255, 140, 66, 0.12);
-  --color-focus-ring: #FF8C42;
-  --color-selected-bg: #2D1A0A;
-  --color-drag-overlay: rgba(255, 140, 66, 0.16);
+  --color-focus-ring:     #FF8C42;
+  --color-selected-bg:    #2D1A0A;
+  --color-drag-overlay:   rgba(255, 140, 66, 0.16);
 
-  /* ========================================
-     SPECJALNE
-     ======================================== */
-  --color-scrim: rgba(0, 0, 0, 0.6);
-  --color-skeleton: #2E2522;
-  --color-divider: #261E1C;
-  --color-scrollbar-thumb: #3A302C;
+  /* SPECIAL */
+  --color-scrim:                 rgba(0, 0, 0, 0.6);
+  --color-skeleton:              #2E2522;
+  --color-divider:               #261E1C;
+  --color-scrollbar-thumb:       #3A302C;
   --color-scrollbar-thumb-hover: #5A4E48;
+  --color-glow-primary:          rgba(255, 106, 0, 0.25);
+  --color-glow-secondary:        rgba(66, 180, 255, 0.20);
 
-  /* ========================================
-     NEON GLOW (efekty specjalne)
-     ======================================== */
-  --color-glow-primary: rgba(255, 106, 0, 0.25);
-  --color-glow-accent: rgba(66, 180, 255, 0.20);
+  /* M3 ELEVATION OVERLAYS (dark tonal) */
+  --elevation-1: rgba(255, 140, 66, 0.05);
+  --elevation-2: rgba(255, 140, 66, 0.08);
+  --elevation-3: rgba(255, 140, 66, 0.11);
+  --elevation-4: rgba(255, 140, 66, 0.12);
+  --elevation-5: rgba(255, 140, 66, 0.14);
+
+  /* M3 SHAPE SCALE */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   28px;
+  --radius-full: 9999px;
 }
 
 @layer base {
-  *, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  *, *::before, *::after { box-sizing: border-box; }
 
-  html {
-    font-family: var(--font-sans);
-    color: var(--color-text-primary);
-  }
-  
   body {
     background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: 'Inter', sans-serif;
   }
 
   input, button, textarea, select {
-    font: inherit;
-    color: inherit;
-    background: none;
-    border: none;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
+    font: inherit; color: inherit; background: none;
+    border: none; outline: none; appearance: none; -webkit-appearance: none;
   }
 
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-scrollbar-thumb);
-    border-radius: 9999px;
+    background: var(--color-scrollbar-thumb); border-radius: 9999px;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-scrollbar-thumb-hover);
-  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-scrollbar-thumb-hover); }
+
+  ::selection { background: var(--color-primary-subtle); color: var(--color-primary); }
+  * { -webkit-tap-highlight-color: transparent; }
 }

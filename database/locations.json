@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "name": "Oświęcim",
+    "icon": "storefront",
+    "color": "#FF8C42",
+    "enabled": true
+  },
+  {
+    "id": "2",
+    "name": "Wilamowice",
+    "icon": "home",
+    "color": "#42B4FF",
+    "enabled": true
+  },
+  {
+    "id": "3",
+    "name": "Osiek",
+    "icon": "park",
+    "color": "#66D97A",
+    "enabled": true
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "id": "e1",
+    "name": "Paweł",
+    "color": "#3498db",
+    "rate": 29,
+    "enabled": true
+  },
+  {
+    "id": "e2",
+    "name": "Radek",
+    "color": "#2ecc71",
+    "rate": 29,
+    "enabled": true
+  },
+  {
+    "id": "e3",
+    "name": "Sebastian",
+    "color": "#e74c3c",
+    "rate": 29,
+    "enabled": true
+  },
+  {
+    "id": "e4",
+    "name": "Tomek",
+    "color": "#f1c40f",
+    "rate": 29,
+    "enabled": true
+  },
+  {
+    "id": "e5",
+    "name": "Kacper",
+    "color": "#e67e22",
+    "rate": 29,
+    "enabled": true
+  },
+  {
+    "id": "e6",
+    "name": "Natalia",
+    "color": "#9b59b6",
+    "rate": 29,
+    "enabled": true
+  },
+  {
+    "id": "e7",
+    "name": "Dominik",
+    "color": "#1abc9c",
+    "rate": 29,
+    "enabled": true
+  }
+]
