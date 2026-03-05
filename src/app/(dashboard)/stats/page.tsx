@@ -21,6 +21,26 @@ export default function StatsPage() {
   const [payoutEnd, setPayoutEnd] = React.useState(format(new Date(), 'yyyy-MM-dd'));
 
   const [chartType, setChartType] = React.useState<'bar' | 'line'>('bar');
+  const [chartTooltip, setChartTooltip] = React.useState<{ visible: boolean, content: any, x: number, y: number } | null>(null);
+
+  const handleMouseMove = (e: React.MouseEvent, data: any) => {
+    const day = activeDays.find(d => format(d, 'd') === data.date);
+    if (!day) return;
+    
+    const dayData = getDayData(day);
+    if(dayData.rev === 0) return;
+
+    setChartTooltip({
+      visible: true,
+      content: {day, ...dayData},
+      x: e.clientX,
+      y: e.clientY,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setChartTooltip(null);
+  };
 
   React.useEffect(() => {
     fetch('/api/reports')
@@ -118,6 +138,8 @@ export default function StatsPage() {
   // Metrics for selected period
   const totalRev = activeReports.reduce((sum, r) => sum + (Number(r.revenue) || 0), 0);
   const totalCardRev = activeReports.reduce((sum, r) => sum + (Number(r.cardRevenue) || 0), 0);
+  const workingDays = activeReports.length > 0 ? new Set(activeReports.map(r => r.date)).size : 0;
+  const avgRev = workingDays > 0 ? totalRev / workingDays : 0;
   
   const locRevs: Record<string, { total: number, card: number }> = {};
   activeReports.forEach(r => {
@@ -143,14 +165,16 @@ export default function StatsPage() {
   const getDayData = (date: Date) => {
     const dayReports = monthReports.filter(r => isSameDay(parseDate(r.date), date));
     const rev = dayReports.reduce((sum, r) => sum + (Number(r.revenue) || 0), 0);
-    const empsInfo: string[] = [];
+    const empsInfo: { name: string; hours: number; location: string; color: string; }[] = [];
     
     dayReports.forEach(r => {
       if (r.employees) {
         Object.entries(r.employees).forEach(([eId, timeStr]: [string, any]) => {
           const h = calculateHours(timeStr);
-          const name = employees.find(e => e.id === eId)?.name || eId;
-          empsInfo.push(`${name} ${h.toFixed(1)}h (${r.location})`);
+          const employee = employees.find(e => e.id === eId || e.name === eId);
+          const name = employee?.name || eId;
+          const color = employee?.color || '#FF8C42';
+          empsInfo.push({ name, hours: h, location: r.location, color });
         });
       }
     });
@@ -265,20 +289,23 @@ export default function StatsPage() {
 
       {/* Main Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card variant="elevated" className="p-5 flex flex-col gap-2 border-b-4 border-primary lg:col-span-2 justify-center">
-          <div className="flex items-center gap-2 text-text-secondary">
-            <Icon name="payments" size={16} />
-            <span className="label-small font-bold uppercase tracking-wider">Utarg całkowity ({selectedWeek === 'all' ? 'Miesiąc' : `Tydzień ${parseInt(selectedWeek)+1}`})</span>
+        <Card variant="elevated" className="p-5 flex flex-col gap-3 border-b-4 border-primary lg:col-span-2">
+          <div className="flex items-center justify-between text-text-secondary">
+            <div className="flex items-center gap-2">
+              <Icon name="payments" size={16} />
+              <span className="label-small font-bold uppercase tracking-wider">Utarg całkowity ({selectedWeek === 'all' ? 'Miesiąc' : `Tydzień ${parseInt(selectedWeek)+1}`})</span>
+            </div>
+            <span className="label-small">{workingDays} dni z raportem</span>
           </div>
-          <div className="flex items-baseline gap-4">
+          <div className="flex items-baseline gap-2">
             <span className="display-medium text-primary">{totalRev.toFixed(2)} zł</span>
             <span className="title-medium text-text-muted whitespace-nowrap">(Karty: {totalCardRev.toFixed(2)} zł)</span>
           </div>
-          <p className="body-small text-text-muted mt-1">
-            💡 Statystycznie najlepszym dniem jest <strong className="text-primary">{bestDayName}</strong>
-          </p>
+          <div className="mt-auto flex items-center gap-2 text-text-secondary">
+              <Icon name="trending_up" size={16} />
+              <span className="body-small">Średnio <strong className="text-text-primary font-bold">{avgRev.toFixed(2)} zł</strong> dziennie</span>
+          </div>
         </Card>
-        
         {Object.entries(locRevs).map(([locName, rev]) => {
            const locConfig = locations.find(l => l.name === locName);
            return (
@@ -313,34 +340,23 @@ export default function StatsPage() {
           </div>
         </div>
         
-        <div className="flex items-end">
-          <div className="h-72 w-20 pr-4 flex flex-col justify-between text-right text-text-muted label-small pb-8">
+        <div className="flex items-end overflow-visible" onMouseLeave={handleMouseLeave}>
+          <div className="h-72 w-16 pr-4 flex flex-col justify-between text-right text-text-muted label-small pb-8">
             {Array.from({ length: 5 }).map((_, i) => (
-              <span key={i}>{(maxChartRev / 4 * (4 - i)).toFixed(0)} zł</span>
+              <span key={i} className="whitespace-nowrap">{(maxChartRev / 4 * (4 - i)).toFixed(0)} zł</span>
             ))}
           </div>
-          <div className="h-72 flex-1 flex items-end gap-2 md:gap-4 px-2 overflow-x-auto custom-scrollbar pb-2 border-l border-border-subtle pt-4">
+          <div className="h-72 flex-1 flex items-end gap-2 md:gap-4 border-l border-border-subtle pl-2">
             {chartData.map((d, i) => {
               const hPct = Math.max((d.total / maxChartRev) * 100, 2);
               return (
-                <div key={i} className="flex-1 min-w-[24px] flex flex-col items-center gap-2 group h-full">
+                <div 
+                  key={i} 
+                  className="flex-1 min-w-0 flex flex-col items-center gap-2 group h-full"
+                  onMouseMove={(e) => handleMouseMove(e, d)}
+                >
                   <div className="relative w-full flex justify-center h-full items-end">
-                    {/* Tooltip */}
-                    <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 bg-bg-highest text-text-primary text-xs p-3 rounded-xl shadow-lg pointer-events-none z-20 whitespace-nowrap border border-border-subtle transition-opacity">
-                      <div className="font-bold text-primary mb-1 border-b border-border-subtle pb-1">
-                        {d.date} {format(monthDate, 'LLLL', { locale: pl })} (Suma: {d.total.toFixed(2)} zł)
-                      </div>
-                      {Object.entries(d.locs).map(([l, v], idx) => (
-                        <div key={idx} className="flex justify-between gap-4 py-0.5">
-                          <span className="flex items-center gap-1">
-                            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getLocationColor(l) }} />
-                            {l}
-                          </span>
-                          <span className="font-medium">{v.toFixed(2)} zł</span>
-                        </div>
-                      ))}
-                    </div>
-                    
+                    {/* New tooltip will be rendered at root */}
                     {chartType === 'bar' ? (
                       <div className="w-full max-w-[40px] flex flex-col justify-end transition-all duration-500 rounded-t-sm overflow-hidden" style={{ height: `${hPct}%` }}>
                         {Object.entries(d.locs).map(([l, v], idx) => {
@@ -389,9 +405,8 @@ export default function StatsPage() {
           <div className="flex items-center justify-between">
             <h2 className="title-large text-primary flex items-center gap-2">
               <Icon name="calendar_month" />
-              Mapa Cieplna ({format(monthDate, 'LLLL', { locale: pl })})
-            </h2>
-          </div>
+              Mapa Cieplna
+            </h2>          </div>
 
           <div className="grid grid-cols-7 gap-2">
             {['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb', 'Nd'].map(d => (
@@ -419,22 +434,43 @@ export default function StatsPage() {
                   
                   {data.rev > 0 && (
                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[260px] bg-bg-highest text-text-primary text-xs p-3 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20 border border-border-subtle">
-                      <div className="font-bold text-primary mb-1 border-b border-border-subtle pb-1">
-                        {format(day, 'dd.MM.yyyy')} (Utarg: {data.rev} zł)
+                      <div className="flex items-center gap-2 font-bold text-primary mb-1 border-b border-border-subtle pb-1">
+                        <span>{format(day, 'dd.MM.yyyy')}</span>
+                        <span className="text-text-secondary">•</span>
+                        <span>{data.rev.toFixed(2)} zł</span>
                       </div>
+                      
                       {data.reports.map((r: any, idx: number) => (
                         <div key={idx} className="flex justify-between gap-4 py-0.5">
-                          <span className="flex items-center gap-1 text-text-secondary">
+                          <span className="flex items-center gap-1.5 text-text-secondary">
                              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getLocationColor(r.location) }} />
                              {r.location}
                           </span>
-                          <span className="font-medium text-success">{r.revenue} zł <span className="text-text-muted text-[10px]">(K: {r.cardRevenue || 0} zł)</span></span>
+                          <span className="font-medium text-text-primary">{r.revenue} zł <span className="text-text-muted text-[10px]">(K: {r.cardRevenue || 0} zł)</span></span>
                         </div>
                       ))}
-                      <div className="mt-2 pt-2 border-t border-border-subtle text-text-muted leading-relaxed flex flex-col gap-1">
-                        <span className="font-bold text-text-primary mb-1">Ekipa (Godziny):</span>
-                        {data.empsInfo.map((info, i) => <span key={i}>{info}</span>)}
-                      </div>
+
+                      {data.reports.length > 1 && (
+                        <div className="flex justify-between gap-4 pt-1.5 mt-1 border-t border-border-subtle">
+                          <span className="font-bold text-text-primary">SUMA</span>
+                          <span className="font-bold text-success">{data.rev.toFixed(2)} zł <span className="text-text-muted text-[10px]">(K: {data.reports.reduce((s, r) => s + (Number(r.cardRevenue) || 0), 0).toFixed(2)} zł)</span></span>
+                        </div>
+                      )}
+
+                      {data.empsInfo.length > 0 && (
+                        <div className="mt-2 pt-2 border-t border-border-subtle text-text-muted leading-relaxed flex flex-col gap-1">
+                          <span className="font-bold text-text-primary mb-1">Ekipa (Godziny):</span>
+                          {data.empsInfo.map((info, i) => (
+                            <div key={i} className="flex justify-between items-center text-xs">
+                              <span className="flex items-center gap-1.5">
+                                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: info.color }} />
+                                <span style={{ color: info.color }}>{info.name}</span>
+                              </span>
+                              <span className="text-text-secondary">{info.hours.toFixed(1)}h ({info.location})</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -485,10 +521,10 @@ export default function StatsPage() {
                 <div key={id} className="p-4 bg-bg-raised rounded-xl flex items-center justify-between border border-border-subtle hover:border-primary transition-colors">
                   <div className="flex items-center gap-3">
                     <div 
-                      className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
+                      className="w-12 h-12 rounded-full flex items-center justify-center text-on-primary"
                       style={{ backgroundColor: empConfig?.color || '#888' }}
                     >
-                      {name.charAt(0)}
+                      <Icon name={empConfig?.icon || 'person'} size={24} />
                     </div>
                     <div className="flex flex-col">
                       <h3 className="title-medium">{name}</h3>
@@ -580,6 +616,51 @@ export default function StatsPage() {
            )}
          </div>
       </Card>
+
+      {chartTooltip && chartTooltip.visible && (
+        <div 
+          className="fixed bg-bg-highest text-text-primary text-xs p-3 rounded-xl shadow-lg pointer-events-none z-50 border border-border-subtle"
+          style={{ top: chartTooltip.y + 10, left: chartTooltip.x + 10 }}
+        >
+          <div className="flex items-center gap-2 font-bold text-primary mb-1 border-b border-border-subtle pb-1">
+            <span>{format(chartTooltip.content.day, 'dd.MM.yyyy')}</span>
+            <span className="text-text-secondary">•</span>
+            <span>{chartTooltip.content.rev.toFixed(2)} zł</span>
+          </div>
+          
+          {chartTooltip.content.reports.map((r: any, idx: number) => (
+            <div key={idx} className="flex justify-between gap-4 py-0.5">
+              <span className="flex items-center gap-1.5 text-text-secondary">
+                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getLocationColor(r.location) }} />
+                  {r.location}
+              </span>
+              <span className="font-medium text-text-primary">{r.revenue} zł <span className="text-text-muted text-[10px]">(K: {r.cardRevenue || 0} zł)</span></span>
+            </div>
+          ))}
+
+          {chartTooltip.content.reports.length > 1 && (
+            <div className="flex justify-between gap-4 pt-1.5 mt-1 border-t border-border-subtle">
+              <span className="font-bold text-text-primary">SUMA</span>
+              <span className="font-bold text-success">{chartTooltip.content.rev.toFixed(2)} zł <span className="text-text-muted text-[10px]">(K: {chartTooltip.content.reports.reduce((s:any, r:any) => s + (Number(r.cardRevenue) || 0), 0).toFixed(2)} zł)</span></span>
+            </div>
+          )}
+
+          {chartTooltip.content.empsInfo.length > 0 && (
+            <div className="mt-2 pt-2 border-t border-border-subtle text-text-muted leading-relaxed flex flex-col gap-1">
+              <span className="font-bold text-text-primary mb-1">Ekipa (Godziny):</span>
+              {chartTooltip.content.empsInfo.map((info:any, i:number) => (
+                <div key={i} className="flex justify-between items-center text-xs">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: info.color }} />
+                    <span style={{ color: info.color }}>{info.name}</span>
+                  </span>
+                  <span className="text-text-secondary">{info.hours.toFixed(1)}h ({info.location})</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

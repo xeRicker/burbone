@@ -86,6 +86,9 @@ export default function LocationsPage() {
                 {loc.enabled ? "AKTYWNY" : "WYŁĄCZONY"}
               </span>
               <div className="flex items-center gap-1">
+                <button onClick={() => openEdit(loc)} className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary ml-1">
+                  <Icon name="edit" size={18} />
+                </button>
                 <button
                   onClick={() => updateLocation(loc.id, { enabled: !loc.enabled })}
                   className={cn(
@@ -97,9 +100,6 @@ export default function LocationsPage() {
                     "w-4 h-4 bg-white rounded-full transition-transform",
                     loc.enabled ? 'translate-x-5' : 'translate-x-0'
                   )} />
-                </button>
-                <button onClick={() => openEdit(loc)} className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary ml-1">
-                  <Icon name="edit" size={18} />
                 </button>
               </div>
             </div>

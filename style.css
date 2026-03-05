@@ -283,6 +283,9 @@ input:focus { outline: none; }
     padding-right: 10px;
     line-height: 1.2;
     font-family: var(--font-body);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .controls {

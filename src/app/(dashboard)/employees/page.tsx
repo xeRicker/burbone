@@ -89,6 +89,13 @@ export default function EmployeesPage() {
                 {emp.enabled ? "AKTYWNY" : "WYŁĄCZONY"}
               </span>
               <div className="flex items-center gap-1">
+                <button 
+                  onClick={() => openEdit(emp)}
+                  className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary ml-1"
+                  title="Edytuj"
+                >
+                  <Icon name="edit" size={18} />
+                </button>
                 <button
                   onClick={() => updateEmployee(emp.id, { enabled: !emp.enabled })}
                   className={cn(
@@ -100,13 +107,6 @@ export default function EmployeesPage() {
                     "w-4 h-4 bg-white rounded-full transition-transform",
                     emp.enabled ? 'translate-x-5' : 'translate-x-0'
                   )} />
-                </button>
-                <button 
-                  onClick={() => openEdit(emp)}
-                  className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary ml-1"
-                  title="Edytuj"
-                >
-                  <Icon name="edit" size={18} />
                 </button>
               </div>
             </div>

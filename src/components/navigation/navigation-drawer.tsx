@@ -14,7 +14,7 @@ const NAV_ITEMS = [
   { label: 'Lokalizacje', icon: 'location_on', href: '/locations' },
   { label: 'Ekipa', icon: 'badge', href: '/employees' },
   { label: 'Statystyki', icon: 'monitoring', href: '/stats' },
-  { label: 'Ustawienia', icon: 'settings', href: '/settings' },
+  { label: 'Listy', icon: 'list_alt', href: '/lists' },
 ];
 
 export function NavigationDrawer() {

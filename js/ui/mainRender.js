@@ -32,7 +32,7 @@ export const mainRender = {
             if(p.type === 's') {
                 return `
                         <div class="product-card animate-stagger type-toggle" data-name="${p.name}" style="animation-delay:${delay}s">
-                            <div class="product-name">${p.name}</div>
+                            <div class="product-name" title="${p.name}" style="white-space:nowrap">${p.name}</div>
                             <div class="controls">
                                 <div class="toggle-indicator"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
                                 <input type="checkbox" id="checkbox-${p.name}" data-name="${p.name}" style="display:none">
@@ -41,7 +41,7 @@ export const mainRender = {
             } else {
                 return `
                         <div class="product-card animate-stagger" data-name="${p.name}" style="animation-delay:${delay}s">
-                            <div class="product-name">${p.name}</div>
+                            <div class="product-name" title="${p.name}" style="white-space:nowrap">${p.name}</div>
                             <div class="controls">
                                 <div class="counter-wrapper">
                                     <button class="btn-qty btn-minus" data-act="dec" data-name="${p.name}">−</button>

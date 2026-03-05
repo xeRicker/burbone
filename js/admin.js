@@ -175,7 +175,7 @@ function initCalculator() {
             return;
         }
 
-        const rate = parseFloat(document.getElementById('calcRate').value) || 0;
+        const rate = parseFloat(document.getElementById('calcRate').value.replace(',', '.')) || 0;
         const d1 = new Date(document.getElementById('calcDateFrom').value);
         const d2 = new Date(document.getElementById('calcDateTo').value); d2.setHours(23,59,59);
 
@@ -205,6 +205,12 @@ function initCalculator() {
             return `<div style="color:${color}; margin-bottom:4px;">${l}: <strong>${v.toFixed(1)}h</strong></div>`;
         }).join('');
     };
+
+    document.getElementById('calcRate').addEventListener('input', (e) => {
+        if (e.target.value.includes('.')) {
+            e.target.value = e.target.value.replace('.', ',');
+        }
+    });
 
     ['change','input'].forEach(ev => {
         sel.addEventListener(ev, recalc);

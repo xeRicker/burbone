@@ -136,6 +136,13 @@ export default function ProductsPage() {
                 
                 <div className="w-px h-6 bg-border-subtle mx-1" />
 
+                <button 
+                  onClick={() => openEditCat(cat)}
+                  className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary"
+                  title="Edytuj kategorię"
+                >
+                  <Icon name="edit" size={18} />
+                </button>
                  <button 
                   onClick={() => updateCategory(cat.id, { enabled: !cat.enabled })}
                   className={cn(
@@ -147,13 +154,6 @@ export default function ProductsPage() {
                     "w-4 h-4 bg-white rounded-full transition-transform",
                     cat.enabled ? 'translate-x-5' : 'translate-x-0'
                   )} />
-                </button>
-                <button 
-                  onClick={() => openEditCat(cat)}
-                  className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary"
-                  title="Edytuj kategorię"
-                >
-                  <Icon name="edit" size={18} />
                 </button>
                 <button 
                   onClick={() => openAddProd(cat.id)}
@@ -172,7 +172,7 @@ export default function ProductsPage() {
                   !item.enabled && "opacity-50"
                 )}>
                   <div className="flex flex-col min-w-0">
-                    <span className="body-medium font-medium">{item.name}</span>
+                    <span className="body-medium font-medium whitespace-nowrap">{item.name}</span>
                     <span className="label-small text-text-muted flex items-center gap-1">
                       <Icon name={item.type === 's' ? "check_box" : "tag"} size={16} />
                       {item.type === 's' ? "Wybór" : "Ilość"}
@@ -180,6 +180,12 @@ export default function ProductsPage() {
                   </div>
                   
                   <div className="flex items-center gap-1">
+                    <button 
+                      onClick={() => openEditProd(cat.id, item)}
+                      className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary ml-1"
+                    >
+                      <Icon name="edit" size={18} />
+                    </button>
                     <button 
                       onClick={() => updateProduct(cat.id, item.id, { enabled: !item.enabled })}
                       className={cn(
@@ -191,12 +197,6 @@ export default function ProductsPage() {
                         "w-3 h-3 bg-white rounded-full transition-transform",
                         item.enabled ? 'translate-x-4' : 'translate-x-0'
                       )} />
-                    </button>
-                    <button 
-                      onClick={() => openEditProd(cat.id, item)}
-                      className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-hover-overlay text-text-secondary ml-1"
-                    >
-                      <Icon name="edit" size={18} />
                     </button>
                   </div>
                 </Card>
