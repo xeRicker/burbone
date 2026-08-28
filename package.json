@@ -1,53 +1,35 @@
 {
-  "name": "burbone",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "burbone-next",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xeRicker/burbone.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "bugs": {
-    "url": "https://github.com/xeRicker/burbone/issues"
-  },
-  "homepage": "https://github.com/xeRicker/burbone#readme",
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.1",
-    "@types/node": "^25.3.3",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "drizzle-kit": "^0.31.9",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.0.0",
-    "typescript": "^5.9.3"
+    "lint": "eslint"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.2.2",
-    "@tanstack/react-query": "^5.90.21",
+    "@base-ui/react": "^1.7.0",
+    "@vercel/blob": "^2.8.0",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "date-fns": "^4.1.0",
-    "drizzle-orm": "^0.45.1",
-    "lucide-react": "^0.576.0",
-    "motion": "^12.34.4",
-    "mysql2": "^3.18.2",
-    "next": "^16.1.6",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-hook-form": "^7.71.2",
-    "tailwind-merge": "^3.5.0",
-    "zod": "^4.3.6",
-    "zustand": "^5.0.11"
+    "lucide-react": "^1.34.0",
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "recharts": "^3.10.1",
+    "shadcn": "^4.19.0",
+    "tailwind-merge": "^3.6.0",
+    "tw-animate-css": "^1.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20.19.43",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

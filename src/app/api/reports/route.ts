@@ -1,66 +1,72 @@
-import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
+import { NextRequest, NextResponse } from "next/server";
+import { putReport, listReports } from "@/lib/blob";
 
-export const dynamic = 'force-dynamic';
+// GET /api/reports?location=Oświęcim&date=28.08.2026
+// GET /api/reports?location=Oświęcim
+// GET /api/reports (all)
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const location = searchParams.get("location") ?? undefined;
+  const date = searchParams.get("date") ?? undefined;
+  const recentMonths = Number(searchParams.get("recentMonths") ?? 0);
 
-const REPORTS_DIR = path.join(process.cwd(), 'database', 'raports');
-
-export async function GET() {
   try {
-    const reports: any[] = [];
-    const dirs = await fs.readdir(REPORTS_DIR, { withFileTypes: true });
-    
-    for (const dir of dirs) {
-      if (dir.isDirectory()) {
-        const locPath = path.join(REPORTS_DIR, dir.name);
-        const files = await fs.readdir(locPath);
-        
-        for (const file of files) {
-          if (file.endsWith('.json')) {
-            try {
-              const data = await fs.readFile(path.join(locPath, file), 'utf-8');
-              const parsed = JSON.parse(data);
-              // Ensure we have a location from the directory if it's missing
-              if (!parsed.location) {
-                parsed.location = dir.name.charAt(0).toUpperCase() + dir.name.slice(1);
-              }
-              // Extract date from filename if missing or malformed
-              if (!parsed.date) {
-                parsed.date = file.replace('.json', '');
-              }
-              reports.push(parsed);
-            } catch (e) {
-              console.error(`Failed to parse ${file}`);
-            }
-          }
-        }
-      }
+    if (date && location) {
+      // single report - fetch via blob head+fetch
+      const { getReport } = await import("@/lib/blob");
+      const data = await getReport(location, date);
+      if (!data) return NextResponse.json({ error: "Not found" }, { status: 404 });
+      return NextResponse.json(data);
     }
-    return NextResponse.json(reports);
-  } catch (error) {
-    console.error("Error reading reports directory", error);
-    return NextResponse.json([]);
+
+    const blobs = await listReports({ location, limit: 3000 });
+
+    // optional filter by recent months (like dev-server.js:104)
+    let filtered = blobs;
+    if (recentMonths > 0) {
+      const now = new Date();
+      const keys = new Set(
+        Array.from({ length: recentMonths }, (_, i) => {
+          const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+        })
+      );
+      const getKey = (pathname: string) => {
+        // pathname reports/Osiek/28.08.2026.json -> month 2026-08
+        const m = pathname.match(/(\d{2})\.(\d{2})\.(\d{4})\.json$/);
+        if (!m) return "";
+        return `${m[3]}-${m[2]}`;
+      };
+      filtered = blobs.filter((b) => keys.has(getKey(b.pathname)));
+    }
+
+    // For analytics we need actual JSON content - fetch each blob (private needs token)
+    const token = process.env.BURBONE_READ_WRITE_TOKEN ?? process.env.BLOB_READ_WRITE_TOKEN;
+    const results: unknown[] = [];
+    for (const b of filtered) {
+      try {
+        const res = await fetch(b.url, token ? { headers: { Authorization: `Bearer ${token}` } } as never : undefined);
+        if (res.ok) results.push(await res.json());
+      } catch {}
+    }
+    return NextResponse.json(results);
+  } catch (e) {
+    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }
 }
 
-export async function POST(request: Request) {
+// PUT /api/reports  { location, date: "28.08.2026", ...report }
+export async function PUT(req: NextRequest) {
   try {
-    const body = await request.json();
-    const { location, date } = body;
-    
+    const body = await req.json();
+    const location = body.location as string | undefined;
+    const date = body.date as string | undefined;
     if (!location || !date) {
-       return NextResponse.json({ error: 'Missing location or date' }, { status: 400 });
+      return NextResponse.json({ error: "location and date required (dd.mm.yyyy)" }, { status: 400 });
     }
-    
-    const locDir = path.join(REPORTS_DIR, location.toLowerCase());
-    await fs.mkdir(locDir, { recursive: true });
-    
-    const filePath = path.join(locDir, `${date}.json`);
-    await fs.writeFile(filePath, JSON.stringify(body, null, 2));
-    
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to save report' }, { status: 500 });
+    const result = await putReport(location, date, body);
+    return NextResponse.json({ ok: true, url: result.url, pathname: result.pathname });
+  } catch (e) {
+    return NextResponse.json({ ok: false, error: (e as Error).message }, { status: 400 });
   }
 }

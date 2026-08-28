@@ -1,35 +1,32 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils/cn";
 
-const inter = Inter({ subsets: ["latin"] });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "Generator Listy — Burbone",
-  description: "System generowania raportów dziennych",
+  title: "Burbone",
+  description: "Burbone — generator list i panel admina",
+  icons: { icon: "/favicon.png" },
 };
 
-import { ConfigInitializer } from "@/components/features/config-initializer";
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pl">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={cn(inter.className, "bg-bg-base text-text-primary antialiased")}>
-        <ConfigInitializer>
-          {children}
-        </ConfigInitializer>
-      </body>
+    <html
+      lang="pl"
+      data-color-mode="dark"
+      data-theme="dark:dark spacing:spacing shape:shape typography:typography"
+      className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col bg-background text-foreground">{children}</body>
     </html>
   );
 }
